@@ -9,4 +9,7 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 ### Neural Connectome
 ![Neural Connectome](https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/neuralcorrelationall.png)
 
+### Training pipeline
+
+![Training Pipeline](https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png)
 **NOTE: Repo is undergoing radical changes! 
