@@ -24,7 +24,7 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 <h4 align="center">Training pipeline</h4> 
 
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" height="300" width="400" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" height="300" width="350" ></a>
 </p>
 
 
