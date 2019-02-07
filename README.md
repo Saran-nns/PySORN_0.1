@@ -3,25 +3,25 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 
 " Self-Organising Recurrent Neural Networks: Prospects of Biologically Plausible Artificial Brain Circuits Solving General Intelligence Tasks at the Imminence of Chaos"
 
-
-<h2>SORN Reservoir</h2>
+<h4,align="center">SORN Reservoir</h4>
 
 <p align="center">
 <a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORN1.png" height="200" width="300" ></a>
 </p>
 
-##### The evolution of connection strenghts
+<h4,align="center">The evolution of connection strenghts</h4>
+ 
 <p align="center">
 <a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/weights.png" height="300" width="300" ></a>
 </p>
 
-### Neural Connectome
+<h4,align="center">Neural Connectome</h4> 
 
 <p align="center">
 <a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/neuralcorrelationall.png" height="300" width="300" ></a>
 </p>
 
-### Training pipeline
+<h4,align="center">Training pipeline</h4> 
 
 <p align="center">
 <a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" height="150" width="350" ></a>
