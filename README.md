@@ -27,8 +27,11 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 <a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" height="250" width="400" ></a>
 </p>
 
+<h4 align="center">Average smoothened Cart pole rewards</h4> 
 
-# TODO
+<p align="center">
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/cartpole_results.png" height="350" width="350" ></a>
+</p>
 
 ### Packages required:
 
@@ -103,6 +106,9 @@ for EPISODE in range(NUM_EPISODES):
       
 
 ```
+
+# TODO
+
 ### Alpha, BetaCPU version : Cartpole, Time series tasks, SORN models
 ### Alpha, BetaCPU version : SORN models
 ### Method to integrate with OpenAI gym 
