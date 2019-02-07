@@ -21,6 +21,14 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 # TODO
 
 ### Installation Instructions
+
+#### Add the project folder to sys path
+
+#### Navigate to project folder: Eg: PySORN_0.1/src/alpha_cpu
+##### Run
+```python
+python setup.py
+```
 ### Add Requirements.txt
 ### Alpha, BetaCPU version : Cartpole, Time series tasks, SORN models
 ### Alpha, BetaCPU version : SORN models
