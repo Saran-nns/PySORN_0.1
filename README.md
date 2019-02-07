@@ -2,23 +2,28 @@
 The Implementation of Self- Organizing Recurrent Neural Networks for my Master thesis titled
 
 " Self-Organising Recurrent Neural Networks: Prospects of Biologically Plausible Artificial Brain Circuits Solving General Intelligence Tasks at the Imminence of Chaos"
-### SORN Reservoir
+##### SORN Reservoir
 
 <p align="center">
 <a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORN1.png" height="200" width="300" ></a>
 </p>
 
-### The evolution of connection strenghts
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/weights.png" align="center" height="300" width="300" ></a>
+##### The evolution of connection strenghts
+<p align="center">
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/weights.png" height="300" width="300" ></a>
+</p>
 
 ### Neural Connectome
 
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/neuralcorrelationall.png" align="center" height="300" width="300" ></a>
-
+<p align="center">
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/neuralcorrelationall.png" height="300" width="300" ></a>
+</p>
 
 ### Training pipeline
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" align="center" height="150" width="350" ></a>
 
+<p align="center">
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" height="150" width="350" ></a>
+</p>
 
 
 # TODO
