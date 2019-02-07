@@ -6,25 +6,25 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 <h4 align="center">SORN Reservoir</h4>
 
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORN1.png" height="200" width="300" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORN1.png" height="250" width="350" ></a>
 </p>
 
 <h4 align="center">The evolution of connection strenghts</h4>
  
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/weights.png" height="300" width="300" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/weights.png" height="350" width="350" ></a>
 </p>
 
 <h4 align="center">Neural Connectome</h4> 
 
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/neuralcorrelationall.png" height="300" width="300" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/neuralcorrelationall.png" height="350" width="350" ></a>
 </p>
 
 <h4 align="center">Training pipeline</h4> 
 
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" height="150" width="350" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORNCartcropped.png" height="200" width="200" ></a>
 </p>
 
 
