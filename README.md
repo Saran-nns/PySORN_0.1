@@ -30,13 +30,15 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 <h4 align="center">Average smoothened Cart pole rewards</h4> 
 
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/cartpole_results.png" height="350" width="350" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/cartpole_results.png" height="450" width="350" ></a>
 </p>
 
 ### Packages required:
 
 Python 3.6
+
 Pytorch 0.4
+
 OpenAI Gym
 
 For details check requirements.txt
@@ -104,7 +106,15 @@ for EPISODE in range(NUM_EPISODES):
                                                                                                             matrices = sim_matrices,
                                                                                                             inputs = state)
       
-
+      # Feed excit_states as input states to your RL algorithm, below goes for simple policy gradient algorithm
+      # Sample policy w.r.t excitatory states and take action in the environment
+       
+      probs = policy(np.asarray(excit_states),output_layer_weights))
+      action = np.random.choice(nA,p=probs[0])
+      state,reward,done,_ = env.step(action) 
+      
+      if done:
+        break
 ```
 
 # TODO
