@@ -606,3 +606,31 @@ class RunSorn(Sorn):
                             'X': X[-1], 'Y': Y[-1]}
 
         return plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn
+
+
+
+def main():
+    """# Start the Simulation step with random input strings"""
+
+    _inputs = None  # Used only during linear output layer optimization: During simulation, use input generator from utils
+
+    #  During first batch of training; Pass matrices as None:
+    # SORN will intialize the matrices based on the configuration settings
+
+    plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = RunSorn(phase='Plasticity', matrices=None,
+                                                                          time_steps=10000).run_sorn(_inputs)
+
+    # Pickle the simulaion matrices for reuse
+
+    with open('stdp2013_10k.pkl', 'wb') as f:
+        pickle.dump([plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn], f)
+
+    # While re simulate the network using any already simulated/ acquired matrices
+
+    with open('stdp2013_10k.pkl', 'rb') as f:
+        plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = pickle.load(f)
+
+    plastic_matrices1, X_all1, Y_all1, R_all1, frac_pos_active_conn1 = RunSorn(phase='Plasticity',
+                                                                               matrices=plastic_matrices,
+                                                                               time_steps=20000).run_sorn(inp=None)
+

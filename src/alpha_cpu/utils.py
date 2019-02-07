@@ -63,7 +63,7 @@ def multi_one_hot_inp(ne, inputs, n_nodes_per_inp):
 
     Returns:
 
-      one_hot_vecot for each label with length equals ne"""
+      one_hot_vector for each label with length equals ne"""
 
     one_hot = np.zeros((ne, len(inputs)))
 
@@ -143,6 +143,7 @@ def normalize_weight_matrix(weight_matrix):
 
 
 def generate_lambd_connections(synaptic_connection, ne, ni, lambd_w, lambd_std):
+
     """
     Args:
     synaptic_connection -  Type of sysnpatic connection (EE,EI or IE)
@@ -270,7 +271,7 @@ def generate_lambd_connections(synaptic_connection, ne, ni, lambd_w, lambd_std):
 
 def get_incoming_connection_dict(weights):
 
-    """ Get the non-zero entries in columns is the incoming connections for the neurons""""
+    """ Get the non-zero entries in columns is the incoming connections for the neurons"""
 
     # Indices of nonzero entries in the columns
     connection_dict = dict.fromkeys(range(1, len(weights) + 1), 0)
@@ -362,32 +363,4 @@ def zero_sum_incoming_check(weights):
                 weights[:, zero_sum_incoming][idx] = rand_values[i]
 
     return weights
-
-
-
-
-"""# Start the Simulation step with random input strings"""
-
-_inputs = None  # Used only during linear output layer optimization: During simulation, use input generator from utils
-
-#  During first batch of training; Pass matrices as None:
-# SORN will intialize the matrices based on the configuration settings
-
-plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = RunSorn(phase='Plasticity', matrices=None,
-                                                                      time_steps=10000).run_sorn(_inputs)
-
-# Pickle the simulaion matrices for reuse
-
-with open('stdp2013_10k.pkl', 'wb') as f:
-    pickle.dump([plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn], f)
-
-
-# While re simulate the network using any already simulated/ acquired matrices
-
-with open('stdp2013_10k.pkl', 'rb') as f:
-    plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = pickle.load(f)
-
-
-plastic_matrices1, X_all1, Y_all1, R_all1, frac_pos_active_conn1 = RunSorn(phase='Plasticity', matrices=plastic_matrices,
-                                                                           time_steps=20000).run_sorn(inp=None)
 
