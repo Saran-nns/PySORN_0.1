@@ -7,12 +7,7 @@ from __future__ import division
 import numpy as np
 from scipy.stats import norm
 import random
-import tqdm
-import pandas as pd
-from collections import OrderedDict
-import matplotlib.pyplot as plt
-import heapq
-import pickle
+
 
 
 # Random seeds

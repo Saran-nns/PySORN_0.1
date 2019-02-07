@@ -1,30 +1,46 @@
+from __future__ import division
+
+import numpy as np
+from utils import *
+from configparser import ConfigParser
+
+from scipy.stats import norm
+import random
+
+parser = ConfigParser()
+
+parser.read('configuration.ini')
+
+
 """### SORN"""
 
 
 class Sorn(object):
-    """SORN 1 network model Initialization"""
+
+    # SORN network Initialization
 
     def __init__(self):
         pass
 
-    """Initialize network variables as class variables of SORN"""
+    """Get network variables from configuration file as class variables of SORN"""
 
-    nu = 10  # Number of input units
-    ne = 200  # Number of excitatory units
+    nu = parser.get('Network_Config', 'Nu')  # Number of input units
+    ne = parser.get('Network_Config', 'Ne')  # Number of excitatory units
     ni = int(0.2 * ne)  # Number of inhibitory units in the network
-    eta_stdp = 0.004
-    eta_inhib = 0.001
-    eta_ip = 0.01
-    te_max = 1.0
-    ti_max = 0.5
-    ti_min = 0.0
-    te_min = 0.0
-    mu_ip = 0.1
-    sigma_ip = 0.0  # Standard deviation, variance == 0
+    eta_stdp = parser.get('Network_Config', 'eta_stdp')
+    eta_inhib = parser.get('Network_Config', 'eta_inhib')
+    eta_ip = parser.get('Network_Config', 'eta_ip')
+    te_max = parser.get('Network_Config', 'te_max')
+    ti_max = parser.get('Network_Config', 'ti_max')
+    ti_min = parser.get('Network_Config', 'ti_min')
+    te_min = parser.get('Network_Config', 'te_min')
+    mu_ip = parser.get('Network_Config', 'mu_ip')
+    sigma_ip = parser.get('Network_Config', 'sigma_ip')  # Standard deviation, variance == 0
 
     # Initialize weight matrices
 
-    def initialize_weight_matrix(self, network_type, synaptic_connection, self_connection, lambd_w):
+    @staticmethod
+    def initialize_weight_matrix(network_type, synaptic_connection, self_connection, lambd_w):
 
         """
         Args:
@@ -40,7 +56,8 @@ class Sorn(object):
 
         if (network_type == "Sparse") and (self_connection == "False"):
 
-            """Generate weight matrix for E-E/ E-I connections with mean lamda incoming and outgiong connections per neuron"""
+            """ Generate weight matrix for E-E/ E-I connections with mean lamda incoming and 
+               out-going connections per neuron """
 
             weight_matrix = generate_lambd_connections(synaptic_connection, Sorn.ne, Sorn.ni, lambd_w, lambd_std=1)
 
@@ -60,7 +77,8 @@ class Sorn(object):
 
         return weight_matrix
 
-    def initialize_threshold_matrix(self, te_min, te_max, ti_min, ti_max):
+    @staticmethod
+    def initialize_threshold_matrix(te_min, te_max, ti_min, ti_max):
 
         # Initialize the threshold for excitatory and inhibitory neurons
 
@@ -73,12 +91,13 @@ class Sorn(object):
             te(vector) -- Threshold values for excitatory units
             ti(vector) -- Threshold values for inhibitory units"""
 
-        te = np.random.uniform(0., te_max, (Sorn.ne, 1))
-        ti = np.random.uniform(0., ti_max, (Sorn.ni, 1))
+        te = np.random.uniform(te_min, te_max, (Sorn.ne, 1))
+        ti = np.random.uniform(ti_min, ti_max, (Sorn.ni, 1))
 
         return te, ti
 
-    def initialize_activity_vector(self, ne, ni):
+    @staticmethod
+    def initialize_activity_vector(ne, ni):
 
         # Initialize the activity vectors X and Y for excitatory and inhibitory neurons
 
@@ -97,7 +116,7 @@ class Sorn(object):
 
 """## NOTE: DO NOT TRANSPOSE THE WEIGHT MATRIX WEI FOR SORN 2 MODEL"""
 
-# Create and initialize sorn object and varaibles
+# Create and initialize sorn object and variables
 
 sorn_init = Sorn()
 WEE_init = sorn_init.initialize_weight_matrix(network_type='Sparse', synaptic_connection='EE', self_connection='False',
@@ -119,7 +138,7 @@ b = np.count_nonzero(Wie_init)
 print(c, v, b)
 print('Shapes Wee %s Wei %s Wie %s' % (Wee_init.shape, Wei_init.shape, Wie_init.shape))
 
-# Normaalize the incoming weights i.e sum(incoming weights to a neuron) = 1
+# Normalize the incoming weights i.e sum(incoming weights to a neuron) = 1
 
 normalized_wee = normalize_weight_matrix(Wee_init)
 normalized_wei = normalize_weight_matrix(Wei_init)
@@ -161,7 +180,7 @@ class Plasticity(Sorn):
         self.eta_inhib = Sorn.eta_inhib  # Intrinsic plasticity learning rate constant; SORN2 only
         self.h_ip = 2 * Sorn.nu / Sorn.ne  # Target firing rate
         self.mu_ip = Sorn.mu_ip  # Mean target firing rate
-        self.ni = Sorn.ni  # Number of inhibitory units in the network
+        self.ni = int(0.2 * Sorn.ne)  # Number of inhibitory units in the network
         self.time_steps = Sorn.time_steps  # Total time steps of simulation
         self.te_min = Sorn.te_min  # Excitatory minimum Threshold
         self.te_max = Sorn.te_max  # Excitatory maximum Threshold
@@ -305,7 +324,8 @@ class Plasticity(Sorn):
 
     @staticmethod
     def reorganize_network():
-        pass
+
+        return NotImplementedError
 
 
 class MatrixCollection(Sorn):
@@ -608,14 +628,16 @@ class RunSorn(Sorn):
         return plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn
 
 
-
 def main():
+
     """# Start the Simulation step with random input strings"""
 
-    _inputs = None  # Used only during linear output layer optimization: During simulation, use input generator from utils
+    # Used only during linear output layer optimization: During simulation, use input generator from utils
+
+    _inputs = None
 
     #  During first batch of training; Pass matrices as None:
-    # SORN will intialize the matrices based on the configuration settings
+    # SORN will initialize the matrices based on the configuration settings
 
     plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = RunSorn(phase='Plasticity', matrices=None,
                                                                           time_steps=10000).run_sorn(_inputs)
