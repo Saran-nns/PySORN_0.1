@@ -20,16 +20,82 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 
 # TODO
 
+### Packages required:
+
+Python 3.6
+Pytorch 0.4
+OpenAI Gym
+
+For details check requirements.txt
+
 ### Installation Instructions
 
-#### Add the project folder to sys path
+#### i) Install dependencies:
 
-#### Navigate to project folder: Eg: PySORN_0.1/src/alpha_cpu
-##### Run
+Navigate to project folder in shell: Eg: /PySORN_0.1/src/alpha_cpu
+
+Run:
+
+```python
+pip install -r requirements.txt
+```
+
+#### ii) Add the project folder to sys path:
+
+Run:
 ```python
 python setup.py
 ```
-### Add Requirements.txt
+### Usage:
+
+```python
+# Imports
+
+from utils import *
+from sorn import Sorn, Plasticity, TrainSorn, TrainSornPlasticity
+import gym
+
+# Load the simulated network matrices
+# Note this matrice are obtained after the network achieved convergence under random inputs and noise
+
+with open('simulation_matrices.pkl','rb') as f:  
+    sim_matrices,excit_states,inhib_states,recur_states,num_reservoir_conn = pickle.load(f)
+
+
+# Training parameters
+
+NUM_EPISODES = 2e6
+NUM_PLASTICITY_EPISODES = 20000
+
+env = gym.make('CartPole-v0')
+
+for EPISODE in range(NUM_EPISODES):
+    
+    # Environment observation
+    state = env.reset()[None,:]
+    
+    # Play the episode
+    
+    while True:
+    
+      # Network is trained under plasticity mechanisms
+        
+      
+      # Plasticity phase
+      
+      if EPISODE < NUM_PLASTICITY_EPISODE:
+        sim_matrices,excit_states,inhib_states,recur_states,num_reservoir_conn = TrainSornPlasticity.train_sorn(phase = 'Plasticity',
+                                                                                                            matrices = sim_matrices,
+                                                                                                            inputs = state)
+
+      else:
+        # Training phase with frozen reservoir connectivity
+        sim_matrices,excit_states,inhib_states,recur_states,num_reservoir_conn = TrainSornPlasticity.train_sorn(phase = 'Plasticity',
+                                                                                                            matrices = sim_matrices,
+                                                                                                            inputs = state)
+      
+
+```
 ### Alpha, BetaCPU version : Cartpole, Time series tasks, SORN models
 ### Alpha, BetaCPU version : SORN models
 ### Method to integrate with OpenAI gym 
