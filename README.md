@@ -132,7 +132,7 @@ for EPISODE in range(NUM_EPISODES):
       # Sample policy w.r.t excitatory states and take action in the environment
        
       probs = policy(np.asarray(excit_states),output_layer_weights))
-      action = np.random.choice(nA,p=probs[0])
+      action = np.random.choice(action_space,probs)
       state,reward,done,_ = env.step(action) 
       
       if done:
