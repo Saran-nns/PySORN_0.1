@@ -124,7 +124,7 @@ for EPISODE in range(NUM_EPISODES):
 
       else:
         # Training phase with frozen reservoir connectivity
-        sim_matrices,excit_states,inhib_states,recur_states,num_reservoir_conn = TrainSornPlasticity.train_sorn(phase = 'Plasticity',
+        sim_matrices,excit_states,inhib_states,recur_states,num_reservoir_conn = TrainSornPlasticity.train_sorn(phase = 'Training',
                                                                                                             matrices = sim_matrices,
                                                                                                             inputs = state)
       
