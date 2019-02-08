@@ -1,4 +1,4 @@
-# PySORN_0.1
+# PySORN: Pre-release version 0.1.0
 
 Implementation of Self- Organizing Recurrent Neural Networks for my Master thesis titled
 
