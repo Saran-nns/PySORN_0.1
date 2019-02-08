@@ -84,7 +84,9 @@ Run:
 ```python
 python setup.py
 ```
-### Usage:
+
+
+### Usage: OpenAI Gym
 
 ```python
 # Imports
@@ -125,7 +127,7 @@ for EPISODE in range(NUM_EPISODES):
 
       else:
         # Training phase with frozen reservoir connectivity
-        sim_matrices,excit_states,inhib_states,recur_states,num_reservoir_conn = TrainSornPlasticity.train_sorn(phase = 'Training',
+        sim_matrices,excit_states,inhib_states,recur_states,num_reservoir_conn = TrainSorn.train_sorn(phase = 'Training',
                                                                                                             matrices = sim_matrices,
                                                                                                             inputs = state)
       
