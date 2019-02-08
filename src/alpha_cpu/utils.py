@@ -9,14 +9,13 @@ from scipy.stats import norm
 import random
 
 
-
 # Random seeds
 
 random.seed(110)
 np.random.seed(1101)
 
 
-"""### UTILS"""
+""" UTILS"""
 
 # INPUT GENERATORS
 

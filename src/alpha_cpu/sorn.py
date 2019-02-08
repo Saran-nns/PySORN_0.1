@@ -3,16 +3,11 @@ from __future__ import division
 import numpy as np
 from utils import *
 from configparser import ConfigParser
-
-from scipy.stats import norm
 import random
 
 parser = ConfigParser()
 
 parser.read('configuration.ini')
-
-
-"""### SORN"""
 
 
 class Sorn(object):
