@@ -22,6 +22,10 @@ The Implementation of Self- Organizing Recurrent Neural Networks for my Master t
 </p>
 
 
+### Supporting OS:
+
+Windows 10
+
 ### Packages required:
 
 Python 3.6
@@ -34,17 +38,46 @@ For details check requirements.txt
 
 ### Installation Instructions
 
-#### i) Install dependencies:
+#### i) Create virtual environment
 
-Navigate to project folder in shell: Eg: /PySORN_0.1/src/alpha_cpu
+```python
+conda create -n virtualenvname python=3.6 anaconda
+
+activate virtualenvname
+```
+
+#### ii) Install dependencies
 
 Run:
 
 ```python
 pip install -r requirements.txt
 ```
+Install OpenAI Gym from source:
 
-#### ii) Add the project folder to sys path:
+Run:
+```python
+git clone https://github.com/openai/gym
+cd gym
+pip install -e .
+```
+Then for complete installation:
+ 
+ ```python
+pip install -e .[all]
+```
+ or
+ 
+ Install it through pip:
+ 
+  ```python
+pip install gym
+pip install gym[all]
+```
+
+#### iii) Add the project folder to sys path:
+
+Navigate to project folder in shell: Eg: /PySORN_0.1/src/alpha_cpu
 
 Run:
 ```python
@@ -111,6 +144,5 @@ for EPISODE in range(NUM_EPISODES):
 ### Alpha, BetaCPU version : Cartpole, Time series tasks, SORN models
 ### Alpha, BetaCPU version : SORN models
 ### Method to integrate with OpenAI gym 
-### Use it as a brain of Unity3D AI agents
-### NOTE:
-##### Repo is undergoing radical changes! 
+### Usage: Brain of Unity3D AI agents
+
