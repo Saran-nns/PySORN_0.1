@@ -35,6 +35,8 @@ Pytorch 0.4
 
 OpenAI Gym
 
+CUDA 9.0
+
 For details check requirements.txt
 
 ### Installation Instructions
