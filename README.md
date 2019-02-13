@@ -90,6 +90,12 @@ python setup.py
 
 ### Usage: OpenAI Gym
 
+##### Network hyperparameters:
+
+Open conifiguration.ini file and network variables as required
+
+##### Sample usage
+
 ```python
 # Imports
 
