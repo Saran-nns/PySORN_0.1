@@ -92,7 +92,7 @@ python setup.py
 
 ##### Network hyperparameters:
 
-Open conifiguration.ini file and network variables as required
+Open conifiguration.ini file and edit network variables as required
 
 ##### Sample usage
 
