@@ -1,6 +1,6 @@
 # PySORN: Pre-release version 0.1.0
 
-Implementation of Self- Organizing Recurrent Neural Networks for my Master thesis titled
+Implementation of SORN for my Master thesis titled
 
 " Self-Organising Recurrent Neural Networks: Prospects of Biologically Plausible Artificial Brain Circuits Solving General Intelligence Tasks at the Imminence of Chaos"
 
