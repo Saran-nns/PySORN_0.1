@@ -19,18 +19,18 @@ class Sorn(object):
 
     """Get network variables from configuration file as class variables of SORN"""
 
-    nu = parser.get('Network_Config', 'Nu')  # Number of input units
-    ne = parser.get('Network_Config', 'Ne')  # Number of excitatory units
+    nu = int(parser.get('Network_Config', 'Nu'))  # Number of input units
+    ne = int(parser.get('Network_Config', 'Ne'))  # Number of excitatory units
     ni = int(0.2 * ne)  # Number of inhibitory units in the network
-    eta_stdp = parser.get('Network_Config', 'eta_stdp')
-    eta_inhib = parser.get('Network_Config', 'eta_inhib')
-    eta_ip = parser.get('Network_Config', 'eta_ip')
-    te_max = parser.get('Network_Config', 'te_max')
-    ti_max = parser.get('Network_Config', 'ti_max')
-    ti_min = parser.get('Network_Config', 'ti_min')
-    te_min = parser.get('Network_Config', 'te_min')
-    mu_ip = parser.get('Network_Config', 'mu_ip')
-    sigma_ip = parser.get('Network_Config', 'sigma_ip')  # Standard deviation, variance == 0
+    eta_stdp = float(parser.get('Network_Config', 'eta_stdp'))
+    eta_inhib = float(parser.get('Network_Config', 'eta_inhib'))
+    eta_ip = float(parser.get('Network_Config', 'eta_ip'))
+    te_max = float(parser.get('Network_Config', 'te_max'))
+    ti_max = float(parser.get('Network_Config', 'ti_max'))
+    ti_min = float(parser.get('Network_Config', 'ti_min'))
+    te_min = float(parser.get('Network_Config', 'te_min'))
+    mu_ip = float(parser.get('Network_Config', 'mu_ip'))
+    sigma_ip = float(parser.get('Network_Config', 'sigma_ip'))  # Standard deviation, variance == 0
 
     # Initialize weight matrices
 
@@ -549,7 +549,7 @@ class RunSorn(Sorn):
 
             x_buffer, y_buffer = np.zeros((Sorn.ne, 2)), np.zeros((Sorn.ni, 2))
 
-            # TODO: Return te,ti values in future version
+            # TODO: Return te,ti values in next version
             te_buffer, ti_buffer = np.zeros((Sorn.ne, 1)), np.zeros((Sorn.ni, 1))
 
             # Get the matrices and rename them for ease of reading
