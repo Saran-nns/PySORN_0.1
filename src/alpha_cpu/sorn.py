@@ -1,9 +1,12 @@
 from __future__ import division
 
 import numpy as np
-from utils import *
+import utils.InitHelper as initializer
 from configparser import ConfigParser
 import random
+import tqdm
+import pickle
+
 
 parser = ConfigParser()
 
@@ -54,7 +57,7 @@ class Sorn(object):
             """ Generate weight matrix for E-E/ E-I connections with mean lamda incoming and 
                out-going connections per neuron """
 
-            weight_matrix = generate_lambd_connections(synaptic_connection, Sorn.ne, Sorn.ni, lambd_w, lambd_std=1)
+            weight_matrix = initializer.generate_lambd_connections(synaptic_connection, Sorn.ne, Sorn.ni, lambd_w, lambd_std=1)
 
         # Dense matrix for W_ie
 
@@ -121,10 +124,10 @@ WEI_init = sorn_init.initialize_weight_matrix(network_type='Sparse', synaptic_co
 WIE_init = sorn_init.initialize_weight_matrix(network_type='Dense', synaptic_connection='IE', self_connection='False',
                                               lambd_w=None)
 
-Wee_init = zero_sum_incoming_check(WEE_init)
-# Wei_init = zero_sum_incoming_check(WEI_init.T)
-Wei_init = zero_sum_incoming_check(WEI_init)
-Wie_init = zero_sum_incoming_check(WIE_init)
+Wee_init = initializer.zero_sum_incoming_check(WEE_init)
+# Wei_init = initializer.zero_sum_incoming_check(WEI_init.T)
+Wei_init = initializer.zero_sum_incoming_check(WEI_init)
+Wie_init = initializer.zero_sum_incoming_check(WIE_init)
 
 c = np.count_nonzero(Wee_init)
 v = np.count_nonzero(Wei_init)
@@ -135,13 +138,13 @@ print('Shapes Wee %s Wei %s Wie %s' % (Wee_init.shape, Wei_init.shape, Wie_init.
 
 # Normalize the incoming weights i.e sum(incoming weights to a neuron) = 1
 
-normalized_wee = normalize_weight_matrix(Wee_init)
-normalized_wei = normalize_weight_matrix(Wei_init)
-normalized_wie = normalize_weight_matrix(Wie_init)
+normalized_wee = initializer.normalize_weight_matrix(Wee_init)
+normalized_wei = initializer.normalize_weight_matrix(Wei_init)
+normalized_wie = initializer.normalize_weight_matrix(Wie_init)
 
-normalized_wee = normalize_weight_matrix(Wee_init)
-normalized_wei = normalize_weight_matrix(Wei_init)
-normalized_wie = normalize_weight_matrix(Wie_init)
+normalized_wee = initializer.normalize_weight_matrix(Wee_init)
+normalized_wei = initializer.normalize_weight_matrix(Wei_init)
+normalized_wie = initializer.normalize_weight_matrix(Wie_init)
 te_init, ti_init = sorn_init.initialize_threshold_matrix(Sorn.te_min, Sorn.te_max, Sorn.ti_min, Sorn.ti_max)
 x_init, y_init = sorn_init.initialize_activity_vector(Sorn.ne, Sorn.ni)
 
@@ -205,10 +208,10 @@ class Plasticity(Sorn):
                     wee_t[j][i] = wee[j][i] + delta_wee_t
 
         """ Prune the smallest weights induced by plasticity mechanisms; Apply lower cutoff weight"""
-        wee_t = prune_small_weights(wee_t, cutoff_weights[0])
+        wee_t = initializer.prune_small_weights(wee_t, cutoff_weights[0])
 
         """Check and set all weights < upper cutoff weight """
-        wee_t = set_max_cutoff_weight(wee_t, cutoff_weights[1])
+        wee_t = initializer.set_max_cutoff_weight(wee_t, cutoff_weights[1])
 
         return wee_t
 
@@ -270,10 +273,10 @@ class Plasticity(Sorn):
                     wei_t[j][i] = wei[j][i] + delta_wei_t
 
         """ Prune the smallest weights induced by plasticity mechanisms; Apply lower cutoff weight"""
-        wei_t = prune_small_weights(wei_t, cutoff_weights[0])
+        wei_t = initializer.prune_small_weights(wei_t, cutoff_weights[0])
 
         """Check and set all weights < upper cutoff weight """
-        wei_t = set_max_cutoff_weight(wei_t, cutoff_weights[1])
+        wei_t = initializer.set_max_cutoff_weight(wei_t, cutoff_weights[1])
 
         return wei_t
 
@@ -290,7 +293,7 @@ class Plasticity(Sorn):
 
             # Choose the smallest weights randomly from the weight matrix wee
 
-            indexes = get_unconnected_indexes(wee)
+            indexes = initializer.get_unconnected_indexes(wee)
 
             # Choose any idx randomly
             idx_rand = random.choice(indexes)
@@ -537,11 +540,11 @@ class RunSorn(Sorn):
 
         for i in tqdm.tqdm(range(self.time_steps)):
             """ Generate white noise"""
-            white_noise_e = white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ne)
-            white_noise_i = white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ni)
+            white_noise_e = initializer.white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ne)
+            white_noise_i = initializer.white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ni)
 
             # Generate inputs
-            inp_ = np.expand_dims(generate_normal_inp(10), 1)
+            inp_ = np.expand_dims(initializer.generate_normal_inp(10), 1)
 
             network_state = NetworkState(inp_)  # Feed input and initialize network state
 

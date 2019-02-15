@@ -27,7 +27,7 @@ class InitHelper(object):
     @staticmethod
     def generate_strong_inp(length, reservoir_size):
 
-        # Randomly neurons in the reservoir acts as inputs
+        # Random neurons in the reservoir acts as inputs
 
         """
         Args:
@@ -37,16 +37,16 @@ class InitHelper(object):
                   with randomly chosen neuron set active
             idx - List of chosen input neurons """
 
-        out = [0] * reservoir_size
+        inp = [0] * reservoir_size
         x = [0] * length
         idx = np.random.choice(length, np.random.randint(reservoir_size))
 
         for i in idx:
             x[i] = 1.0e4
 
-        out[:len(x)] = x
+        inp[:len(x)] = x
 
-        return out, idx
+        return inp, idx
 
     # Generate multi-node one-hot strong inputs
 
