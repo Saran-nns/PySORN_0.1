@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c362233-108a-4a0f-bc96-67188f35899a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/sorn.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alpha_cpu/sorn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/configuration.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/criticality_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/sorn.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/utils.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,46 +18,23 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="934" lean-forward="true" selection-start-line="934" selection-end-line="934" />
-              <folding>
-                <element signature="e#62#93#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/sorn_cpu/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sorn_cpu/criticality_check.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
+        <entry file="file://$PROJECT_DIR$/src/sorn_cpu/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="272" column="45" lean-forward="true" selection-start-line="272" selection-start-column="45" selection-end-line="272" selection-end-column="45" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/alpha_cpu/setup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="114">
+              <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/alpha_cpu/criticality_check.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -97,7 +79,28 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="PySORN_0.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PySORN_0.1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PySORN_0.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PySORN_0.1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PySORN_0.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PySORN_0.1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sorn_cpu" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -115,7 +118,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.criticality_check">
+  <component name="RunManager" selected="Python.setup">
     <configuration name="criticality_check" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="PySORN_0.1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -181,9 +184,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.setup" />
         <item itemvalue="Python.criticality_check" />
         <item itemvalue="Python.sorn" />
-        <item itemvalue="Python.setup" />
       </list>
     </recent_temporary>
   </component>
@@ -204,7 +207,7 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.12227363" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.12227363" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -221,37 +224,22 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.12227363" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="2" />
-      <window_info anchor="bottom" id="Message" order="3" />
-      <window_info anchor="bottom" id="Find" order="4" />
-      <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.3297587" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/test.py">
+    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/test.py" />
+    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="337">
+          <caret line="934" selection-start-line="934" selection-end-line="934" />
+          <folding>
+            <element signature="e#62#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/alpha_cpu/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
+        <state relative-caret-position="171">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -266,22 +254,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
+    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="934" lean-forward="true" selection-start-line="934" selection-end-line="934" />
+        <state relative-caret-position="232">
+          <caret line="272" column="45" selection-start-line="272" selection-start-column="45" selection-end-line="272" selection-end-column="45" />
           <folding>
-            <element signature="e#62#93#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
+    <entry file="file://$PROJECT_DIR$/src/sorn_cpu/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sorn_cpu/criticality_check.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sorn_cpu/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="272" column="45" lean-forward="true" selection-start-line="272" selection-start-column="45" selection-end-line="272" selection-end-column="45" />
+        <state relative-caret-position="114">
+          <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
