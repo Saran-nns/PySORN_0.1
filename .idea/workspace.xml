@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c362233-108a-4a0f-bc96-67188f35899a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/saran.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/saran.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alpha_cpu/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/sorn.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alpha_cpu/sorn.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,7 +12,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="329">
@@ -26,23 +24,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="232">
+              <caret line="272" column="45" lean-forward="true" selection-start-line="272" selection-start-column="45" selection-end-line="272" selection-end-column="45" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/alpha_cpu/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -77,6 +66,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>initialize_plasticity</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -86,8 +80,8 @@
         <option value="$PROJECT_DIR$/src/alpha_cpu/setup.py" />
         <option value="$PROJECT_DIR$/src/alpha_cpu/criticality_check.py" />
         <option value="$PROJECT_DIR$/src/alpha_cpu/test.py" />
-        <option value="$PROJECT_DIR$/src/alpha_cpu/sorn.py" />
         <option value="$PROJECT_DIR$/src/alpha_cpu/utils.py" />
+        <option value="$PROJECT_DIR$/src/alpha_cpu/sorn.py" />
       </list>
     </option>
   </component>
@@ -208,7 +202,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.12227363" />
@@ -273,22 +266,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="329">
           <caret line="934" lean-forward="true" selection-start-line="934" selection-end-line="934" />
           <folding>
             <element signature="e#62#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="272" column="45" lean-forward="true" selection-start-line="272" selection-start-column="45" selection-end-line="272" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>

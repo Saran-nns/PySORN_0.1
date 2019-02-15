@@ -112,55 +112,6 @@ class Sorn(object):
         return x, y
 
 
-"""## NOTE: DO NOT TRANSPOSE THE WEIGHT MATRIX WEI FOR SORN 2 MODEL"""
-
-# Create and initialize sorn object and variables
-
-sorn_init = Sorn()
-WEE_init = sorn_init.initialize_weight_matrix(network_type='Sparse', synaptic_connection='EE', self_connection='False',
-                                              lambd_w=20)
-WEI_init = sorn_init.initialize_weight_matrix(network_type='Sparse', synaptic_connection='EI', self_connection='False',
-                                              lambd_w=40)
-WIE_init = sorn_init.initialize_weight_matrix(network_type='Dense', synaptic_connection='IE', self_connection='False',
-                                              lambd_w=None)
-
-Wee_init = initializer.zero_sum_incoming_check(WEE_init)
-# Wei_init = initializer.zero_sum_incoming_check(WEI_init.T)
-Wei_init = initializer.zero_sum_incoming_check(WEI_init)
-Wie_init = initializer.zero_sum_incoming_check(WIE_init)
-
-c = np.count_nonzero(Wee_init)
-v = np.count_nonzero(Wei_init)
-b = np.count_nonzero(Wie_init)
-
-print(c, v, b)
-print('Shapes Wee %s Wei %s Wie %s' % (Wee_init.shape, Wei_init.shape, Wie_init.shape))
-
-# Normalize the incoming weights i.e sum(incoming weights to a neuron) = 1
-
-normalized_wee = initializer.normalize_weight_matrix(Wee_init)
-normalized_wei = initializer.normalize_weight_matrix(Wei_init)
-normalized_wie = initializer.normalize_weight_matrix(Wie_init)
-
-normalized_wee = initializer.normalize_weight_matrix(Wee_init)
-normalized_wei = initializer.normalize_weight_matrix(Wei_init)
-normalized_wie = initializer.normalize_weight_matrix(Wie_init)
-te_init, ti_init = sorn_init.initialize_threshold_matrix(Sorn.te_min, Sorn.te_max, Sorn.ti_min, Sorn.ti_max)
-x_init, y_init = sorn_init.initialize_activity_vector(Sorn.ne, Sorn.ni)
-
-# Measure the mean number of incoming and outgoing connections in WEE and WEI
-
-# Initializing variables from sorn_initialize.py
-
-wee_init = normalized_wee.copy()
-wei_init = normalized_wei.copy()
-wie_init = normalized_wie.copy()
-te_init = te_init.copy()
-ti_init = ti_init.copy()
-x_init = x_init.copy()
-y_init = y_init.copy()
-
-
 class Plasticity(Sorn):
     """
     Instance of class Sorn. Inherits the variables and functions defined in class Sorn
@@ -245,7 +196,7 @@ class Plasticity(Sorn):
 
         #  Apply iSTDP rule : Regulates synaptic strength between the pre(Yj) and post(Xi) synaptic neurons
 
-        # Excitaotry network activity
+        # Excitatory network activity
         x = np.asarray(x)  # Array sanity check
         xt_1 = x[:, 0]
         xt = x[:, 1]
@@ -310,13 +261,52 @@ class Plasticity(Sorn):
     @staticmethod
     def initialize_plasticity():
 
-        wee = wee_init
-        wei = wei_init
-        wie = wie_init
-        te = te_init
-        ti = ti_init
-        x = x_init
-        y = y_init
+        """## NOTE: DO NOT TRANSPOSE THE WEIGHT MATRIX WEI FOR SORN 2 MODEL"""
+
+        # Create and initialize sorn object and variables
+
+        sorn_init = Sorn()
+        WEE_init = sorn_init.initialize_weight_matrix(network_type='Sparse', synaptic_connection='EE',
+                                                      self_connection='False',
+                                                      lambd_w=20)
+        WEI_init = sorn_init.initialize_weight_matrix(network_type='Sparse', synaptic_connection='EI',
+                                                      self_connection='False',
+                                                      lambd_w=40)
+        WIE_init = sorn_init.initialize_weight_matrix(network_type='Dense', synaptic_connection='IE',
+                                                      self_connection='False',
+                                                      lambd_w=None)
+
+        Wee_init = initializer.zero_sum_incoming_check(WEE_init)
+        # Wei_init = initializer.zero_sum_incoming_check(WEI_init.T)
+        Wei_init = initializer.zero_sum_incoming_check(WEI_init)
+        Wie_init = initializer.zero_sum_incoming_check(WIE_init)
+
+        c = np.count_nonzero(Wee_init)
+        v = np.count_nonzero(Wei_init)
+        b = np.count_nonzero(Wie_init)
+
+        print('Network Initialized')
+        print('Number of connections in Wee %s , Wei %s, Wie %s' %(c, v, b))
+        print('Shapes Wee %s Wei %s Wie %s' % (Wee_init.shape, Wei_init.shape, Wie_init.shape))
+
+        # Normalize the incoming weights
+
+        normalized_wee = initializer.normalize_weight_matrix(Wee_init)
+        normalized_wei = initializer.normalize_weight_matrix(Wei_init)
+        normalized_wie = initializer.normalize_weight_matrix(Wie_init)
+
+        te_init, ti_init = sorn_init.initialize_threshold_matrix(Sorn.te_min, Sorn.te_max, Sorn.ti_min, Sorn.ti_max)
+        x_init, y_init = sorn_init.initialize_activity_vector(Sorn.ne, Sorn.ni)
+
+        # Initializing variables from sorn_initialize.py
+
+        wee = normalized_wee.copy()
+        wei = normalized_wei.copy()
+        wie = normalized_wie.copy()
+        te = te_init.copy()
+        ti = ti_init.copy()
+        x = x_init.copy()
+        y = y_init.copy()
 
         return wee, wei, wie, te, ti, x, y
 
@@ -588,7 +578,7 @@ class RunSorn(Sorn):
             plasticity = Plasticity()
 
             # TODO
-            # Can be initialised outside loop--> Plasticity may receive some dynamic args in future version
+            # Can be initialised outside loop--> Plasticity will receive dynamic args in future version
 
             # STDP
             Wee_t = plasticity.stdp(Wee[i], x_buffer, cutoff_weights=(0.0, 1.0))
@@ -626,31 +616,34 @@ class RunSorn(Sorn):
         return plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn
 
 
-def main():
+# SAMPLE USAGE
 
-    """# Start the Simulation step with random input strings"""
+"""
+# Start the Simulation step 
 
-    # Used only during linear output layer optimization: During simulation, use input generator from utils
+# Used only during linear output layer optimization: During simulation, use input generator from utils
 
-    _inputs = None
+_inputs = None  # Can also simulate the network without inputs else pass the input values here
 
-    #  During first batch of training; Pass matrices as None:
-    # SORN will initialize the matrices based on the configuration settings
+#  During first batch of training; Pass matrices as None:
+# SORN will initialize the matrices based on the configuration settings
 
-    plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = RunSorn(phase='Plasticity', matrices=None,
+plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = RunSorn(phase='Plasticity', matrices=None,
                                                                           time_steps=10000).run_sorn(_inputs)
 
-    # Pickle the simulaion matrices for reuse
+# Pickle the simulaion matrices for reuse
 
-    with open('stdp2013_10k.pkl', 'wb') as f:
-        pickle.dump([plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn], f)
+with open('stdp2013_10k.pkl', 'wb') as f:
+    pickle.dump([plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn], f)
 
-    # While re simulate the network using any already simulated/ acquired matrices
+# While re simulate the network using any already simulated/ acquired matrices
 
-    with open('stdp2013_10k.pkl', 'rb') as f:
-        plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = pickle.load(f)
+with open('stdp2013_10k.pkl', 'rb') as f:
+    plastic_matrices, X_all, Y_all, R_all, frac_pos_active_conn = pickle.load(f)
 
-    plastic_matrices1, X_all1, Y_all1, R_all1, frac_pos_active_conn1 = RunSorn(phase='Plasticity',
+
+plastic_matrices1, X_all1, Y_all1, R_all1, frac_pos_active_conn1 = RunSorn(phase='Plasticity',
                                                                                matrices=plastic_matrices,
                                                                                time_steps=20000).run_sorn(inp=None)
+"""
 
