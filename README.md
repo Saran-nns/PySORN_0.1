@@ -99,7 +99,7 @@ Open conifiguration.ini file and edit network variables as required
 ```python
 # Imports
 
-from utils import *
+import utils.InitHelper as initializer
 from sorn import Sorn, Plasticity, TrainSorn, TrainSornPlasticity
 import gym
 
