@@ -7,6 +7,8 @@ from __future__ import division
 import numpy as np
 from scipy.stats import norm
 import random
+import matplotlib.pyplot as plt
+
 
 # Random seeds
 
@@ -357,3 +359,88 @@ class InitHelper(object):
                     weights[:, zero_sum_incoming][idx] = rand_values[i]
 
         return weights
+
+
+# ANALYSIS PLOT HELPER CLASS
+
+class Plotter(object):
+
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def hist_incoming_conn(weights, bin_size, histtype, gaussian_fit):
+
+        """Args:
+        :param weights(array) - Connection weights
+        :param bin_size(int) - Histogram bin size
+        :param histtype(str) - Same as histtype matplotlib
+        :param gaussian_fit(bool) - If true; returns the plot with gaussian fit for corresponding histogram
+
+        Returns:
+        plot object """
+
+        # Plot the histogram of distribution of number of incoming connections in the network
+
+        num_incoming_weights = np.sum(np.array(weights) > 0, axis=0)
+
+        plt.figure(figsize=(12, 5))
+
+        plt.title('Number of incoming connections')
+        plt.xlabel('Number of connections')
+        plt.ylabel('Count')
+        plt.hist(num_incoming_weights, bins=bin_size, histtype=histtype)
+
+        if gaussian_fit:
+
+            # Empirical average and variance are computed
+            avg = np.mean(num_incoming_weights)
+            var = np.var(num_incoming_weights)
+            # From hist plot above, it is clear that connection count follow gaussian distribution
+            pdf_x = np.linspace(np.min(num_incoming_weights), np.max(num_incoming_weights), 100)
+            pdf_y = 1.0 / np.sqrt(2 * np.pi * var) * np.exp(-0.5 * (pdf_x - avg) ** 2 / var)
+
+            plt.plot(pdf_x, pdf_y, 'k--', label='Gaussian fit')
+            plt.axvline(x=avg, color='r', linestyle='--', label='Mean')
+            plt.legend()
+
+        return plt.show()
+
+    @staticmethod
+    def hist_outgoing_conn(weights, bin_size, histtype, gaussian_fit):
+
+        """Args:
+                :param weights(array) - Connection weights
+                :param bin_size(int) - Histogram bin size
+                :param histtype(str) - Same as histtype matplotlib
+                :param gaussian_fit(bool) - If true; returns the plot with gaussian fit for corresponding histogram
+
+                Returns:
+                plot object """
+
+        # Plot the histogram of distribution of number of incoming connections in the network
+
+        num_outgoing_weights = np.sum(np.array(weights) > 0, axis=1)
+
+        plt.figure(figsize=(12, 5))
+
+        plt.hist(num_outgoing_weights, bins=bin_size, histtype=histtype)
+        plt.title('Number of Outgoing connections')
+        plt.xlabel('Number of connections')
+        plt.ylabel('Count')
+
+        if gaussian_fit:
+
+            # Empirical average and variance are computed
+            avg = np.mean(num_outgoing_weights)
+            var = np.var(num_outgoing_weights)
+            # From hist plot above, it is clear that connection count follow gaussian distribution
+            pdf_x = np.linspace(np.min(num_outgoing_weights), np.max(num_outgoing_weights), 100)
+            pdf_y = 1.0 / np.sqrt(2 * np.pi * var) * np.exp(-0.5 * (pdf_x - avg) ** 2 / var)
+
+            plt.plot(pdf_x, pdf_y, 'k--', label='Gaussian fit')
+            plt.axvline(x=avg, color='r', linestyle='--', label='Mean')
+            plt.legend()
+
+        return plt.show()
+
