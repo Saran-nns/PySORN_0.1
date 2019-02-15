@@ -8,353 +8,352 @@ import numpy as np
 from scipy.stats import norm
 import random
 
-
 # Random seeds
 
-random.seed(110)
-np.random.seed(1101)
-
+# random.seed(110)
+# np.random.seed(1101)
 
 """ UTILS"""
 
-# INPUT GENERATORS
 
-# Generate strong one-hot vector of input
+class InitHelper(object):
 
+    def __init__(self):
+        pass
 
-def generate_strong_inp(length,reservoir_size):
+    # INPUT GENERATOR
+    # Generate strong one-hot vector of input
 
-    # Randomly neurons in the reservoir acts as inputs
+    @staticmethod
+    def generate_strong_inp(length, reservoir_size):
 
-    """
-    Args:
-        length - Number of input neurons
-    Returns:
-        out - Input vector of length equals the number of neurons in the reservoir
-              with randomly chosen neuron set active
-        idx - List of chosen input neurons """
+        # Randomly neurons in the reservoir acts as inputs
 
-    out = [0] * reservoir_size
-    x = [0] * length
-    idx = np.random.choice(length, np.random.randint(reservoir_size))
+        """
+        Args:
+            length - Number of input neurons
+        Returns:
+            out - Input vector of length equals the number of neurons in the reservoir
+                  with randomly chosen neuron set active
+            idx - List of chosen input neurons """
 
-    for i in idx:
-        x[i] = 1.0e4
+        out = [0] * reservoir_size
+        x = [0] * length
+        idx = np.random.choice(length, np.random.randint(reservoir_size))
 
-    out[:len(x)] = x
+        for i in idx:
+            x[i] = 1.0e4
 
-    return out, idx
+        out[:len(x)] = x
 
-# Generate multi-node one-hot strong inputs
+        return out, idx
 
+    # Generate multi-node one-hot strong inputs
 
-def multi_one_hot_inp(ne, inputs, n_nodes_per_inp):
-    """Args:
+    @staticmethod
+    def multi_one_hot_inp(ne, inputs, n_nodes_per_inp):
+        """Args:
 
-      ne - Number of excitatory units in sorn
-      inputs - input labels
-      n_nodes_per_inp - Number of target units in pool that receives single input
+          ne - Number of excitatory units in sorn
+          inputs - input labels
+          n_nodes_per_inp - Number of target units in pool that receives single input
 
-    Returns:
+        Returns:
 
-      one_hot_vector for each label with length equals ne"""
+          one_hot_vector for each label with length equals ne"""
 
-    one_hot = np.zeros((ne, len(inputs)))
+        one_hot = np.zeros((ne, len(inputs)))
 
-    idxs = []
+        idxs = []
 
-    for _ in range(n_nodes_per_inp):
-        idxs.append(random.sample(range(0, ne), len(inputs)))
+        for _ in range(n_nodes_per_inp):
+            idxs.append(random.sample(range(0, ne), len(inputs)))
 
-    idxs = list(zip(*idxs))
+        idxs = list(zip(*idxs))
 
-    j = 0  # Max(j) = len(inputs)
-    for idx_list in idxs:
-        for i in idx_list:
-            one_hot[i][j] = 1
-        j += 1
+        j = 0  # Max(j) = len(inputs)
+        for idx_list in idxs:
+            for i in idx_list:
+                one_hot[i][j] = 1
+            j += 1
 
-    return one_hot, idxs
+        return one_hot, idxs
 
-# one_hot_inp_identity, input_neurons = multi_one_hot_inp(200, inputs, 1)
-# """Edit: ROWS Equals number of neurons, hence each input has to be transposed"""
-#
-#
-# # print('Shape of one hot inputs',list(one_hot_inp_identity[:,1]),input_neurons)
-#
-# # # np.shape(list(one_hot_inp_identity[:,1]))
-# # c = np.expand_dims(np.asarray(one_hot_inp_identity[:,1]),1)
-# # c.shape
+    # one_hot_inp_identity, input_neurons = multi_one_hot_inp(200, inputs, 1)
+    # """Edit: ROWS Equals number of neurons, hence each input has to be transposed"""
+    #
+    #
+    # # print('Shape of one hot inputs',list(one_hot_inp_identity[:,1]),input_neurons)
+    #
+    # # # np.shape(list(one_hot_inp_identity[:,1]))
+    # # c = np.expand_dims(np.asarray(one_hot_inp_identity[:,1]),1)
+    # # c.shape
 
+    # NOTE: Gaussian input is passed directly inside the class RunSORN:
+    # TODO: generate_gaussian_inputs will be removed from RunSORN in future versions
 
-# NOTE: Gaussian input is passed directly inside the class RunSORN:
-# TODO: generate_gaussian_inputs will be removed from RunSORN in future versions
+    @staticmethod
+    def generate_gaussian_inputs(length, reservoir_size):
 
-def generate_gaussian_inputs(length, reservoir_size):
+        # Randomly neurons in the reservoir acts as inputs
 
-    # Randomly neurons in the reservoir acts as inputs
+        """
+        Args:
+            length - Number of input neurons
+        Returns:
+            out - Input vector of length equals the number of neurons in the reservoir
+                  with randomly chosen neuron set active
+            idx - List of chosen input neurons """
 
-    """
-    Args:
-        length - Number of input neurons
-    Returns:
-        out - Input vector of length equals the number of neurons in the reservoir
-              with randomly chosen neuron set active
-        idx - List of chosen input neurons """
+        out = [0] * reservoir_size
+        x = [0] * length
+        idx = np.random.choice(length, np.random.randint(reservoir_size))
+        inp = np.random.normal(length)
 
-    out = [0] * reservoir_size
-    x = [0] * length
-    idx = np.random.choice(length, np.random.randint(reservoir_size))
-    inp = np.random.normal(length)
+        for i in idx:
+            x[i] = inp[i]
 
-    for i in idx:
-        x[i] = inp[i]
+        out[:len(x)] = x
 
-    out[:len(x)] = x
+        return out, idx
 
-    return out, idx
+    @staticmethod
+    def normalize_weight_matrix(weight_matrix):
 
+        # Applied only while initializing the weight. During simulation, Synaptic scaling applied on weight matrices
 
-def normalize_weight_matrix(weight_matrix):
+        """ Normalize the weights in the matrix such that incoming connections to a neuron sum up to 1
 
-    # Applied only while initializing the weight. During simulation, Synaptic scaling applied on weight matrices
+        Args:
+            weight_matrix(array) -- Incoming Weights from W_ee or W_ei or W_ie
 
-    """ Normalize the weights in the matrix such that incoming connections to a neuron sum up to 1
+        Returns:
+            weight_matrix(array) -- Normalized weight matrix"""
 
-    Args:
-        weight_matrix(array) -- Incoming Weights from W_ee or W_ei or W_ie
+        normalized_weight_matrix = weight_matrix / np.sum(weight_matrix, axis=0)
 
-    Returns:
-        weight_matrix(array) -- Normalized weight matrix"""
+        return normalized_weight_matrix
 
-    normalized_weight_matrix = weight_matrix / np.sum(weight_matrix, axis=0)
+    """Connection Generator:
+     lambda incoming connections for Excitatory neurons and outgoing connections per Inhibitory neuron"""
 
-    return normalized_weight_matrix
+    @staticmethod
+    def generate_lambd_connections(synaptic_connection, ne, ni, lambd_w, lambd_std):
 
+        """
+        Args:
+        synaptic_connection -  Type of sysnpatic connection (EE,EI or IE)
+        ne - Number of excitatory units
+        ni - Number of inhibitory units
+        lambd_w - Average number of incoming connections
+        lambd_std - Standard deviation of average number of connections per neuron
 
-"""Connection Generator:
- lambda incoming connections for Excitatory neurons and outgoing connections per Inhibitory neuron"""
+        Returns:
 
+        connection_weights - Weight matrix
 
-def generate_lambd_connections(synaptic_connection, ne, ni, lambd_w, lambd_std):
+        """
 
-    """
-    Args:
-    synaptic_connection -  Type of sysnpatic connection (EE,EI or IE)
-    ne - Number of excitatory units
-    ni - Number of inhibitory units
-    lambd_w - Average number of incoming connections
-    lambd_std - Standard deviation of average number of connections per neuron
+        if synaptic_connection == 'EE':
 
-    Returns:
+            """Choose random lamda connections per neuron"""
 
-    connection_weights - Weight matrix
+            # Draw normally distributed ne integers with mean lambd_w
 
-    """
+            lambdas_incoming = norm.ppf(np.random.random(ne), loc=lambd_w, scale=lambd_std).astype(int)
 
-    if synaptic_connection == 'EE':
+            # lambdas_outgoing = norm.ppf(np.random.random(ne), loc=lambd_w, scale=lambd_std).astype(int)
 
-        """Choose random lamda connections per neuron"""
+            # List of neurons
 
-        # Draw normally distribued ne integers with mean lambd_w
+            list_neurons = list(range(ne))
 
-        lambdas_incoming = norm.ppf(np.random.random(ne), loc=lambd_w, scale=lambd_std).astype(int)
+            # Connection weights
 
-        # lambdas_outgoing = norm.ppf(np.random.random(ne), loc=lambd_w, scale=lambd_std).astype(int)
+            connection_weights = np.zeros((ne, ne))
 
-        # List of neurons
+            # For each lambd value in the above list,
+            # generate weights for incoming and outgoing connections
 
-        list_neurons = list(range(ne))
+            # -------------Gaussian Distribution of weights --------------
 
-        # Connection weights
+            # weight_matrix = np.random.randn(Sorn.ne, Sorn.ni) + 2 # Small random values from gaussian distribution
+            # Centered around 2 to make all values positive
 
-        connection_weights = np.zeros((ne, ne))
+            # ------------Uniform Distribution --------------------------
+            global_incoming_weights = np.random.uniform(0.0, 0.1, sum(lambdas_incoming))
 
-        # For each lambd value in the above list,
-        # generate weights for incoming and outgoing connections
+            # Index Counter
+            global_incoming_weights_idx = 0
 
-        # -------------Gaussian Distribution of weights --------------
+            # Choose the neurons in order [0 to 199]
 
-        # weight_matrix = np.random.randn(Sorn.ne, Sorn.ni) + 2 # Small random values from gaussian distribution
-        # Centered around 2 to make all values positive
+            for neuron in list_neurons:
 
-        # ------------Uniform Distribution --------------------------
-        global_incoming_weights = np.random.uniform(0.0, 0.1, sum(lambdas_incoming))
+                # Choose ramdom unique (lambdas[neuron]) neurons from  list_neurons
+                possible_connections = list_neurons.copy()
 
-        # Index Counter
-        global_incoming_weights_idx = 0
+                possible_connections.remove(neuron)  # Remove the selected neuron from possible connections i!=j
 
-        # Choose the neurons in order [0 to 199]
+                # Choose random presynaptic neurons
+                possible_incoming_connections = random.sample(possible_connections, lambdas_incoming[neuron])
 
-        for neuron in list_neurons:
+                incoming_weights_neuron = global_incoming_weights[
+                                          global_incoming_weights_idx:global_incoming_weights_idx + lambdas_incoming[
+                                              neuron]]
 
-            # Choose ramdom unique (lambdas[neuron]) neurons from  list_neurons
-            possible_connections = list_neurons.copy()
+                # ---------- Update the connection weight matrix ------------
 
-            possible_connections.remove(neuron)  # Remove the selected neuron from possible connections i!=j
+                # Update incoming connection weights for selected 'neuron'
 
-            # Choose random presynaptic neurons
-            possible_incoming_connections = random.sample(possible_connections, lambdas_incoming[neuron])
+                for incoming_idx, incoming_weight in enumerate(incoming_weights_neuron):
+                    connection_weights[possible_incoming_connections[incoming_idx]][neuron] = incoming_weight
 
-            incoming_weights_neuron = global_incoming_weights[
-                                      global_incoming_weights_idx:global_incoming_weights_idx + lambdas_incoming[
-                                          neuron]]
+                global_incoming_weights_idx += lambdas_incoming[neuron]
 
-            # ---------- Update the connection weight matrix ------------
+            return connection_weights
 
-            # Update incoming connection weights for selected 'neuron'
+        if synaptic_connection == 'EI':
 
-            for incoming_idx, incoming_weight in enumerate(incoming_weights_neuron):
-                connection_weights[possible_incoming_connections[incoming_idx]][neuron] = incoming_weight
+            """Choose random lamda connections per neuron"""
 
-            global_incoming_weights_idx += lambdas_incoming[neuron]
+            # Draw normally distributed ni integers with mean lambd_w
+            lambdas = norm.ppf(np.random.random(ni), loc=lambd_w, scale=lambd_std).astype(int)
 
-        return connection_weights
+            # List of neurons
 
-    if synaptic_connection == 'EI':
+            list_neurons = list(range(ni))  # Each i can connect with random ne neurons
 
-        """Choose random lamda connections per neuron"""
+            # Initializing connection weights variable
 
-        # Draw normally distribued ni integers with mean lambd_w
-        lambdas = norm.ppf(np.random.random(ni), loc=lambd_w, scale=lambd_std).astype(int)
+            connection_weights = np.zeros((ni, ne))
 
-        # List of neurons
+            # ------------Uniform Distribution -----------------------------
+            global_outgoing_weights = np.random.uniform(0.0, 0.1, sum(lambdas))
 
-        list_neurons = list(range(ni))  # Each i can connect with random ne neurons
+            # Index Counter
+            global_outgoing_weights_idx = 0
 
-        # Initializing connection weights variable
+            # Choose the neurons in order [0 to 40]
 
-        connection_weights = np.zeros((ni, ne))
+            for neuron in list_neurons:
 
-        # ------------Uniform Distribution -----------------------------
-        global_outgoing_weights = np.random.uniform(0.0, 0.1, sum(lambdas))
+                # Choose random unique (lambdas[neuron]) neurons from  list_neurons
+                possible_connections = list(range(ne))
 
-        # Index Counter
-        global_outgoing_weights_idx = 0
+                possible_outgoing_connections = random.sample(possible_connections, lambdas[
+                    neuron])  # possible_outgoing connections to the neuron
 
-        # Choose the neurons in order [0 to 40]
+                # Update weights
+                outgoing_weights = global_outgoing_weights[
+                                   global_outgoing_weights_idx:global_outgoing_weights_idx + lambdas[neuron]]
 
-        for neuron in list_neurons:
+                # ---------- Update the connection weight matrix ------------
 
-            ### Choose ramdom unique (lambdas[neuron]) neurons from  list_neurons
-            possible_connections = list(range(ne))
+                # Update outgoing connections for the neuron
 
-            possible_outgoing_connections = random.sample(possible_connections, lambdas[
-                neuron])  # possible_outgoing connections to the neuron
+                for outgoing_idx, outgoing_weight in enumerate(
+                        outgoing_weights):  # Update the columns in the connection matrix
+                    connection_weights[neuron][possible_outgoing_connections[outgoing_idx]] = outgoing_weight
 
-            # Update weights
-            outgoing_weights = global_outgoing_weights[
-                               global_outgoing_weights_idx:global_outgoing_weights_idx + lambdas[neuron]]
+                # Update the global weight values index
+                global_outgoing_weights_idx += lambdas[neuron]
 
-            # ---------- Update the connection weight matrix ------------
+            return connection_weights
 
-            # Update outgoing connections for the neuron
+    """ More Util functions"""
 
-            for outgoing_idx, outgoing_weight in enumerate(
-                    outgoing_weights):  # Update the columns in the connection matrix
-                connection_weights[neuron][possible_outgoing_connections[outgoing_idx]] = outgoing_weight
+    @staticmethod
+    def get_incoming_connection_dict(weights):
 
-            # Update the global weight values index
-            global_outgoing_weights_idx += lambdas[neuron]
+        """ Get the non-zero entries in columns is the incoming connections for the neurons"""
 
-        return connection_weights
+        # Indices of nonzero entries in the columns
+        connection_dict = dict.fromkeys(range(1, len(weights) + 1), 0)
 
+        for i in range(len(weights[0])):  # For each neuron
+            connection_dict[i] = list(np.nonzero(weights[:, i])[0])
 
-""" More Util functions"""
+        return connection_dict
 
+    @staticmethod
+    def get_outgoing_connection_dict(weights):
 
-def get_incoming_connection_dict(weights):
+        """Get the non-zero entries in rows is the outgoing connections for the neurons"""
 
-    """ Get the non-zero entries in columns is the incoming connections for the neurons"""
+        # Indices of nonzero entries in the rows
+        connection_dict = dict.fromkeys(range(1, len(weights) + 1), 1)
 
-    # Indices of nonzero entries in the columns
-    connection_dict = dict.fromkeys(range(1, len(weights) + 1), 0)
+        for i in range(len(weights[0])):  # For each neuron
+            connection_dict[i] = list(np.nonzero(weights[i, :])[0])
 
-    for i in range(len(weights[0])):  # For each neuron
-        connection_dict[i] = list(np.nonzero(weights[:, i])[0])
+        return connection_dict
 
-    return connection_dict
+    @staticmethod
+    def prune_small_weights(weights, cutoff_weight):
 
+        """ Prune the connections with negative connection strength"""
 
-def get_outgoing_connection_dict(weights):
+        weights[weights <= cutoff_weight] = cutoff_weight
 
-    """Get the non-zero entries in rows is the outgoing connections for the neurons"""
-
-    # Indices of nonzero entries in the rows
-    connection_dict = dict.fromkeys(range(1, len(weights) + 1), 1)
-
-    for i in range(len(weights[0])):  # For each neuron
-        connection_dict[i] = list(np.nonzero(weights[i, :])[0])
-
-    return connection_dict
-
-
-def prune_small_weights(weights, cutoff_weight):
-
-    """ Prune the connections with negative connection strength"""
-
-    weights[weights <= cutoff_weight] = cutoff_weight
-
-    return weights
-
-
-def set_max_cutoff_weight(weights, cutoff_weight):
-    """ Set cutoff limit for the values in given array"""
-
-    weights[weights > cutoff_weight] = cutoff_weight
-
-    return weights
-
-
-def get_unconnected_indexes(wee):
-    """
-    Helper function for Structural plasticity to randomly select the unconnected units
-
-    Args:
-    wee -  Weight matrix
-
-    Returns:
-    list (indices) // indices = (row_idx,col_idx)"""
-
-    i, j = np.where(wee <= 0.)
-    indices = list(zip(i, j))
-
-    self_conn_removed = []
-    for i, idxs in enumerate(indices):
-
-        if idxs[0] != idxs[1]:
-            self_conn_removed.append(indices[i])
-
-    return self_conn_removed
-
-
-def white_gaussian_noise(mu, sigma, t):
-    """Generates white gaussian noise with mean mu, standard deviation sigma and
-    the noise length equals t """
-
-    noise = np.random.normal(mu, sigma, t)
-
-    return np.expand_dims(noise, 1)
-
-
-### SANITY CHECK EACH WEIGHTS
-#### Note this function has no influence in weight matrix, will be deprecated in next version
-
-def zero_sum_incoming_check(weights):
-    zero_sum_incomings = np.where(np.sum(weights, axis=0) == 0.)
-
-    if len(zero_sum_incomings[-1]) == 0:
         return weights
-    else:
-        for zero_sum_incoming in zero_sum_incomings[-1]:
 
-            rand_indices = np.random.randint(40,
-                                             size=2)  # 5 because each excitatory neuron connects with 5 inhibitory neurons
-            # given the probability of connections 0.2
-            rand_values = np.random.uniform(0.0, 0.1, 2)
+    @staticmethod
+    def set_max_cutoff_weight(weights, cutoff_weight):
+        """ Set cutoff limit for the values in given array"""
 
-            for i, idx in enumerate(rand_indices):
-                weights[:, zero_sum_incoming][idx] = rand_values[i]
+        weights[weights > cutoff_weight] = cutoff_weight
 
-    return weights
+        return weights
 
+    @staticmethod
+    def get_unconnected_indexes(wee):
+        """
+        Helper function for Structural plasticity to randomly select the unconnected units
+
+        Args:
+        wee -  Weight matrix
+
+        Returns:
+        list (indices) // indices = (row_idx,col_idx)"""
+
+        i, j = np.where(wee <= 0.)
+        indices = list(zip(i, j))
+
+        self_conn_removed = []
+        for i, idxs in enumerate(indices):
+
+            if idxs[0] != idxs[1]:
+                self_conn_removed.append(indices[i])
+
+        return self_conn_removed
+
+    @staticmethod
+    def white_gaussian_noise(mu, sigma, t):
+        """Generates white gaussian noise with mean mu, standard deviation sigma and
+        the noise length equals t """
+
+        noise = np.random.normal(mu, sigma, t)
+
+        return np.expand_dims(noise, 1)
+
+    # SANITY CHECK EACH WEIGHTS
+    # Note this function has no influence in weight matrix, will be deprecated in next version
+
+    @staticmethod
+    def zero_sum_incoming_check(weights):
+        zero_sum_incomings = np.where(np.sum(weights, axis=0) == 0.)
+
+        if len(zero_sum_incomings[-1]) == 0:
+            return weights
+        else:
+            for zero_sum_incoming in zero_sum_incomings[-1]:
+
+                rand_indices = np.random.randint(40, size=2)  # 40 in sense that size of E = 200
+                # given the probability of connections 0.2
+                rand_values = np.random.uniform(0.0, 0.1, 2)
+
+                for i, idx in enumerate(rand_indices):
+                    weights[:, zero_sum_incoming][idx] = rand_values[i]
+
+        return weights

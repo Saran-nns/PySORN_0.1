@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c362233-108a-4a0f-bc96-67188f35899a" name="Default Changelist" comment="" />
+    <list default="true" id="1c362233-108a-4a0f-bc96-67188f35899a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/alpha_cpu/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/alpha_cpu/utils.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -10,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="209">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="e#62#93#0" expanded="true" />
               </folding>
@@ -22,10 +24,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
+            <state relative-caret-position="9025">
               <caret line="634" column="23" selection-start-line="634" selection-start-column="23" selection-end-line="634" selection-end-column="23" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -80,10 +82,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/alpha_cpu/setup.py" />
-        <option value="$PROJECT_DIR$/src/alpha_cpu/utils.py" />
         <option value="$PROJECT_DIR$/src/alpha_cpu/criticality_check.py" />
         <option value="$PROJECT_DIR$/src/alpha_cpu/test.py" />
         <option value="$PROJECT_DIR$/src/alpha_cpu/sorn.py" />
+        <option value="$PROJECT_DIR$/src/alpha_cpu/utils.py" />
       </list>
     </option>
   </component>
@@ -97,7 +99,10 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -201,9 +206,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.2247191" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.12227363" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -222,7 +228,7 @@
     </layout>
     <layout-to-restore>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2247191" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.12227363" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -230,7 +236,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.3297587" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.3297587" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -241,16 +247,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#62#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/alpha_cpu/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -277,10 +273,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/alpha_cpu/sorn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
+        <state relative-caret-position="9025">
           <caret line="634" column="23" selection-start-line="634" selection-start-column="23" selection-end-line="634" selection-end-column="23" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/alpha_cpu/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#62#93#0" expanded="true" />
           </folding>
         </state>
       </provider>
