@@ -1,3 +1,7 @@
+**Status:** Active (under active development, breaking changes may occur)
+
+[![Build status](https://travis-ci.org/https://Saran-nns/PySORN_0.1.svg?branch=master)](https://travis-ci.org/Saran-nns/PySORN_0.1)
+
 # PySORN: Pre-release version 0.1.0
 
 Implementation of SORN for my Master thesis titled
