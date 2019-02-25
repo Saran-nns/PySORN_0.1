@@ -1,41 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c362233-108a-4a0f-bc96-67188f35899a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/PySORN_0.1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/saran.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/images/SORN1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/images/SORNCartcropped.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/images/cartpole_results.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/images/neuralcorrelationall.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/images/weights.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/alpha_cpu/.ipynb_checkpoints/SORN2009_cartpole-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/alpha_cpu/SORN2009_SeqPred.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/alpha_cpu/SORN2009_cartpole.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/alpha_cpu/SORN2009_ping_pong.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/alpha_cpu/SORN_SimulationAnalysis_Part1.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/alpha_numba/.ipynb_checkpoints/SORN2013_10_simulation-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/alpha_numba/SORN2013_10_simulation.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/beta_cpu/.ipynb_checkpoints/SORN2013_10_simulation-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/beta_cpu/SORN2013_10_simulation.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/beta_gpu/.ipynb_checkpoints/SORN09_GPU-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/beta_gpu/SORN09_GPU.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn-gpu/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn-gpu/configuration.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn-gpu/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn-gpu/sorn.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn-gpu/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn_cpu/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn_cpu/configuration.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn_cpu/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn_cpu/sorn.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sorn_cpu/utils.py" beforeDir="false" />
-    </list>
+    <list default="true" id="1c362233-108a-4a0f-bc96-67188f35899a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +9,38 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sorn_cpu/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sorn-gpu/sorn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7296">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sorn_cpu/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="862" column="46" lean-forward="true" selection-start-line="862" selection-start-column="46" selection-end-line="862" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -95,7 +92,13 @@
             <path>
               <item name="PySORN_0.1" type="b2602c69:ProjectViewProjectNode" />
               <item name="PySORN_0.1" type="462c0819:PsiDirectoryNode" />
-              <item name="v0.1.0" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PySORN_0.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PySORN_0.1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sorn_cpu" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
