@@ -9,19 +9,19 @@ Implementation of SORN for my Master thesis titled
 <h4 align="center">SORN Reservoir</h4>
 
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/SORN1.png" height="350" width="500" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/v0.1.0/doc/images/SORN1.png" height="350" width="500" ></a>
 </p>
 
 <h4 align="center">The evolution of connection strenghts</h4>
  
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/weights.png" height="500" width="450" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/v0.1.0/doc/images/weights.png" height="500" width="450" ></a>
 </p>
 
 <h4 align="center">Neural Connectome</h4> 
 
 <p align="center">
-<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/doc/images/neuralcorrelationall.png" height="450" width="450" ></a>
+<a href="url"><img src="https://github.com/Saran-nns/PySORN_0.1/blob/master/v0.1.0/doc/images/neuralcorrelationall.png" height="450" width="450" ></a>
 </p>
 
 
