@@ -1,4 +1,4 @@
-**Status:** Active (under active development, breaking changes may occur)
+**Status:** Active (under active development, breaking changes may occur). To reproduce the figures and analysis, navigate to notebooks/sorn_cpu.
 
 # PySORN: Pre-release version 0.1.0
 
