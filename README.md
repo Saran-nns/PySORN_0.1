@@ -152,10 +152,3 @@ for EPISODE in range(NUM_EPISODES):
         break
 ```
 
-# TODO
-
-### Alpha, BetaCPU version : Cartpole, Time series tasks, SORN models
-### Alpha, BetaCPU version : SORN models
-### Method to integrate with OpenAI gym 
-### Usage: Brain of Unity3D AI agents
-
