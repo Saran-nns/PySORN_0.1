@@ -474,9 +474,13 @@ class TrainMenu(QtGui.QMainWindow):
 
 def run():
     app = QtGui.QApplication(sys.argv)
-    # GUI = SORNModelWindow()
+    GUI = SORNModelWindow()
     # GUI = SORN1ActionWindow()
-    GUI = SORN2ActionWindow()
+    # GUI = SORN2ActionWindow()
     sys.exit(app.exec_())
 
-run()
+
+if __name__== '__main__':
+
+    run()
+
