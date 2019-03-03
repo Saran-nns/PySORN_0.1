@@ -1,4 +1,5 @@
 import sys
+from configparser import ConfigParser
 from PyQt4 import QtGui, QtCore
 
 class SORNModelWindow(QtGui.QMainWindow):
@@ -55,6 +56,7 @@ class SORNModelWindow(QtGui.QMainWindow):
 
             self.sorn1ActionMenu.show()
 
+            # self.close()
         elif state != QtCore.Qt.Checked:
 
             self.sorn1ActionMenu.close()
@@ -126,16 +128,6 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         self.analysisCheckBox.resize(self.analysisCheckBox.sizeHint())
         self.analysisCheckBox.stateChanged.connect(self.analysis_menu)
 
-
-        # Exit Button
-        self.btn2 = QtGui.QPushButton('Exit', self)
-        self.btn2.setStyleSheet('font-size: 15pt; font-family: Courier;')
-        self.btn2.clicked.connect(self.exit_question)
-        self.btn2.setStyleSheet('background-color: green; color:white; font-size: 15pt; font-family: Courier;')
-        self.btn2.resize(self.btn2.sizeHint())
-        self.btn2.move(375, 425)
-
-
         # Toolbar in main menu home
 
         # extractAction = QtGui.QAction(QtGui.QIcon("logo.png"), 'Simulate the Network', self)
@@ -146,84 +138,72 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         self.setStyleSheet("background-color: gray;")
         self.show()
 
-    # Event handlers
-
-    def create_project(self):
-
-        # Initiate SORNWindow in new window
-        #TODO: Add Menu tool bars  
-        pass
-
-
-    def choose_model(self):
-
-        pass
-
-
-    def exit_question(self):
-
-            self.setStyleSheet("background-color: gray;")
-            choice = QtGui.QMessageBox.question(self,' QUIT ',
-                                                "Are you sure, you want to quit", 
-                 
-                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-
-            if choice == QtGui.QMessageBox.Yes:
-
-                self.close_application()   # sys.exit()
-            
-            else: self.setStyleSheet("background-color: gray;")
 
     def close_application(self):
         
         sys.exit()
 
-    def create_project(self):
-
-        # Trigger the same class to pop in new window
-        pass
-
+    
     def simulate_menu(self,state):
 
         if state == QtCore.Qt.Checked:
 
-            print('Initiating Simulation')
+            print('Alpha Simulation Parameters')
 
             self.trainCheckBox.setChecked(False)
             self.analysisCheckBox.setChecked(False)
 
-            self.simulateHome.show()
+            self.simulateMenu = AlphaSimulateWindow()
 
-        else: pass
+            self.simulateMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.SimulateMenu.close()
+
+        else:
+            pass
 
 
     def train_menu(self,state):
 
         if state == QtCore.Qt.Checked:
 
-            print('Initiating Training Phase')
+            print('Alpha Training Pipeline')
 
             self.simulateCheckBox.setChecked(False)
             self.analysisCheckBox.setChecked(False)
 
-            self.trainHome.show()
+            self.simulateMenu = AlphaTrainWindow()
 
-        else: pass
+            self.trainMenu.show()
 
+        elif state != QtCore.Qt.Checked:
+
+            self.TrainMenu.close()
+
+        else:
+            pass
 
     def analysis_menu(self,state):
 
         if state == QtCore.Qt.Checked:
 
-            print('Initiatialized SORN Analysis API')
+            print('SORN Alpha Analysis')
 
             self.simulateCheckBox.setChecked(False)
             self.trainCheckBox.setChecked(False)
-            
 
-            self.analysisHome.show()
+            self.simulateMenu = AlphaAnalysisWindow()
 
-        else: pass
+            self.analysisMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.AnalysisMenu.close()
+
+        else:
+            pass
 
     def train(self):
         pass
@@ -278,15 +258,6 @@ class SORN2ActionWindow(QtGui.QMainWindow):
         self.analysisCheckBox.stateChanged.connect(self.analysis_menu)
 
 
-        # Exit Button
-        self.btn2 = QtGui.QPushButton('Exit', self)
-        self.btn2.setStyleSheet('font-size: 15pt; font-family: Courier;')
-        self.btn2.clicked.connect(self.exit_question)
-        self.btn2.setStyleSheet('background-color: green; color:white; font-size: 15pt; font-family: Courier;')
-        self.btn2.resize(self.btn2.sizeHint())
-        self.btn2.move(375, 425)
-
-
         # Toolbar in main menu home
 
         # extractAction = QtGui.QAction(QtGui.QIcon("logo.png"), 'Simulate the Network', self)
@@ -299,129 +270,138 @@ class SORN2ActionWindow(QtGui.QMainWindow):
 
     # Event handlers
 
-    def create_project(self):
-
-        # Initiate SORNWindow in new window
-        #TODO: Add Menu tool bars  
-        pass
-
-
-    def choose_model(self):
-
-        pass
-
-
-    def exit_question(self):
-
-            self.setStyleSheet("background-color: gray;")
-            choice = QtGui.QMessageBox.question(self,' QUIT ',
-                                                "Are you sure, you want to quit", 
-                 
-                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-
-            if choice == QtGui.QMessageBox.Yes:
-
-                self.close_application()   # sys.exit()
-            
-            else: self.setStyleSheet("background-color: gray;")
-
-    def close_application(self):
-        
-        sys.exit()
-
-    def create_project(self):
-
-        # Trigger the same class to pop in new window
-        pass
-
     def simulate_menu(self,state):
 
         if state == QtCore.Qt.Checked:
 
-            print('Initiating Simulation')
+            print('Alpha Simulation Parameters')
 
             self.trainCheckBox.setChecked(False)
             self.analysisCheckBox.setChecked(False)
 
-            self.simulateHome.show()
+            self.simulateMenu = AlphaSimulateWindow()
 
-        else: pass
+            self.simulateMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.SimulateMenu.close()
+
+        else:
+            pass
 
 
     def train_menu(self,state):
 
         if state == QtCore.Qt.Checked:
 
-            print('Initiating Training Phase')
+            print('Alpha Training Pipeline')
 
             self.simulateCheckBox.setChecked(False)
             self.analysisCheckBox.setChecked(False)
 
-            self.trainHome.show()
+            self.simulateMenu = AlphaTrainWindow()
 
-        else: pass
+            self.trainMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.TrainMenu.close()
+
+        else:
+            pass
 
 
     def analysis_menu(self,state):
 
         if state == QtCore.Qt.Checked:
 
-            print('Initiatialized SORN Analysis API')
+            print('SORN Alpha Analysis')
 
             self.simulateCheckBox.setChecked(False)
             self.trainCheckBox.setChecked(False)
-            
 
-            self.analysisHome.show()
+            self.simulateMenu = AlphaAnalysisWindow()
 
-        else: pass
+            self.analysisMenu.show()
 
-    def train(self):
+        elif state != QtCore.Qt.Checked:
+
+            self.AnalysisMenu.close()
+
+        else:
+            pass
+
+    def close_application(self):
+        
+        sys.exit()
+
+
+    # TODO
+    def create_project(self):
+
+        # Trigger the same class to pop in new window
         pass
 
+    
     def update_config(self):
         pass
 
 ###############################################################################################################################################
 
 
-class SimulateMenu(QtGui.QMainWindow):
+class AlphaSimulateWindow(QtGui.QMainWindow):
 
     # Init
     def __init__(self):
-        super(SimulateMenu, self).__init__()
+        super(AlphaSimulateWindow, self).__init__()
 
-        self.setGeometry(50, 50, 500, 300)
-        self.setWindowTitle("SORN Simulation", )
+        self.setGeometry(1050, 50, 500, 1000)
+        self.setWindowTitle("SORN Alpha Simulation", )
         self.setWindowIcon(QtGui.QIcon('logo.png'))
-
-        # Toolbars in the main menu
-
+        
         self.home()
 
     # Views
     def home(self):
         btn1 = QtGui.QPushButton('Simulate', self)
+
+        btn1.setStyleSheet('font-size: 15pt; font-family: Courier;')
+        btn1.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
         btn1.clicked.connect(self.simulate)
         btn1.resize(btn1.sizeHint())
-        btn1.move(50, 100)
-
-
-        btn2 = QtGui.QPushButton('Train', self)
-        btn2.clicked.connect(self.train)
-        btn2.resize(btn2.sizeHint())
-        btn2.move(200, 100)
-
+        btn1.move(50, 900)
 
         btn2 = QtGui.QPushButton('Exit', self)
+        btn2.setStyleSheet('font-size: 15pt; font-family: Courier;')
+        btn2.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
         btn2.clicked.connect(self.exit_question)
         btn2.resize(btn2.sizeHint())
-        btn2.move(400, 400)
+        btn2.move(400, 900)
 
+        self.setStyleSheet("background-color: gray;")
         self.show()
 
     def simulate(self):
         pass
+
+    def exit_question(self):
+
+        self.setStyleSheet("background-color: gray;")
+        choice = QtGui.QMessageBox.question(self,' QUIT ',
+                                            "Are you sure, you want to quit", 
+                 
+                                            QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+
+        if choice == QtGui.QMessageBox.Yes:
+
+            self.close_application()   # sys.exit()
+            
+        else: self.setStyleSheet("background-color: gray;")
+
+    def close_application(self):
+        
+        sys.exit()
 
 
 class TrainMenu(QtGui.QMainWindow):
