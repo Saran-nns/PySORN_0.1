@@ -1,18 +1,15 @@
 import sys
 from PyQt4 import QtGui, QtCore
 
-
-
 class SORNModelWindow(QtGui.QMainWindow):
 
     # Init
-
     def __init__(self):
 
         super(SORNModelWindow,self).__init__()
 
         self.setGeometry(50, 50, 500, 500)
-        self.setWindowTitle("PySORN", )
+        self.setWindowTitle("PySORN")
         self.setWindowIcon(QtGui.QIcon('logo.png'))
         
         self.model_home()
@@ -41,10 +38,6 @@ class SORNModelWindow(QtGui.QMainWindow):
         self.sorn2CheckBox.resize(self.sorn2CheckBox.sizeHint())
         self.sorn2CheckBox.stateChanged.connect(self.sorn2_action_menu)
 
-        # Initiate model action windows
-        self.sorn1ActionMenu = SORN1ActionWindow
-        self.sorn2ActionMenu = SORN2ActionWindow
-
         self.setStyleSheet("background-color: gray;")
         self.show()
 
@@ -58,7 +51,13 @@ class SORNModelWindow(QtGui.QMainWindow):
 
             self.sorn2CheckBox.setChecked(False)
 
+            self.sorn1ActionMenu = SORN1ActionWindow()
+
             self.sorn1ActionMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.sorn1ActionMenu.close()
 
         else:
             pass
@@ -67,11 +66,18 @@ class SORNModelWindow(QtGui.QMainWindow):
         
         if state == QtCore.Qt.Checked:
 
-            print('SORN Alpha Menu')
+            print('SORN Beta Menu')
 
             self.sorn1CheckBox.setChecked(False)
 
+
+            self.sorn2ActionMenu = SORN2ActionWindow()
+
             self.sorn2ActionMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.sorn2ActionMenu.close()
 
         else:
             pass
@@ -83,8 +89,8 @@ class SORN1ActionWindow(QtGui.QMainWindow):
     def __init__(self):
         super(SORN1ActionWindow,self).__init__()
 
-        self.setGeometry(50, 50, 500, 500)
-        self.setWindowTitle("PySORN", )
+        self.setGeometry(550, 50, 500, 500)
+        self.setWindowTitle("SORN Alpha", )
         self.setWindowIcon(QtGui.QIcon('logo.png'))
         
         self.home()
@@ -234,8 +240,8 @@ class SORN2ActionWindow(QtGui.QMainWindow):
     def __init__(self):
         super(SORN2ActionWindow, self).__init__()
 
-        self.setGeometry(50, 50, 500, 500)
-        self.setWindowTitle("PySORN", )
+        self.setGeometry(550, 50, 500, 500)
+        self.setWindowTitle("SORN Beta", )
         self.setWindowIcon(QtGui.QIcon('logo.png'))
         
         self.home()
@@ -412,15 +418,7 @@ class SimulateMenu(QtGui.QMainWindow):
         btn2.resize(btn2.sizeHint())
         btn2.move(400, 400)
 
-        # Toolbar in main menu home
-
-        # extractAction = QtGui.QAction(QtGui.QIcon("logo.png"), 'Simulate the Network', self)
-        # extractAction.triggered.connect(self.simulate_menu)
-        # self.toolBar = self.addToolBar(" Simulation")
-        # self.toolBar.addAction(extractAction)
-
         self.show()
-
 
     def simulate(self):
         pass
@@ -458,14 +456,6 @@ class TrainMenu(QtGui.QMainWindow):
         btn2.clicked.connect(self.exit_question)
         btn2.resize(btn2.sizeHint())
         btn2.move(400, 400)
-
-
-        # Toolbar in main menu home
-
-        # extractAction = QtGui.QAction(QtGui.QIcon("logo.png"), 'Simulate the Network', self)
-        # extractAction.triggered.connect(self.simulate_menu)
-        # self.toolBar = self.addToolBar(" Simulation")
-        # self.toolBar.addAction(extractAction)
 
         self.show()
 
