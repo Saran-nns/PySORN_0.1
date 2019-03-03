@@ -101,32 +101,31 @@ class SORN1ActionWindow(QtGui.QMainWindow):
     def home(self):
 
         # Logo
-        logo = QtGui.QLabel(self)
-        logo.setPixmap(QtGui.QPixmap("logo2.png"))
-        logo.setScaledContents(True)
-        logo.resize(logo.sizeHint())
-        logo.move(0,10)
+        msg = QtGui.QLabel(self)
+        msg.setText("Choose Task")
+        msg.resize(1000,100)
+        msg.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
+        msg.move(20,10)
 
         # Simulation Checkbox
         self.simulateCheckBox = QtGui.QCheckBox('Network Simulation', self)
-        self.simulateCheckBox.move(75,250)
+        self.simulateCheckBox.move(75,150)
         self.simulateCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
         self.simulateCheckBox.resize(self.simulateCheckBox.sizeHint())
-        self.simulateCheckBox.stateChanged.connect(self.simulate_menu)
-        
+        self.simulateCheckBox.stateChanged.connect(self.simulate_question)
         # Training CheckBox
         self.trainCheckBox = QtGui.QCheckBox('Network Training', self)
-        self.trainCheckBox.move(75,300)
+        self.trainCheckBox.move(75,200)
         self.trainCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
         self.trainCheckBox.resize(self.trainCheckBox.sizeHint())
-        self.trainCheckBox.stateChanged.connect(self.train_menu)
+        self.trainCheckBox.stateChanged.connect(self.train_question)
 
         # Analysis CheckBox
         self.analysisCheckBox = QtGui.QCheckBox('Network Analysis', self)
-        self.analysisCheckBox.move(75,350)
+        self.analysisCheckBox.move(75,250)
         self.analysisCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
         self.analysisCheckBox.resize(self.analysisCheckBox.sizeHint())
-        self.analysisCheckBox.stateChanged.connect(self.analysis_menu)
+        self.analysisCheckBox.stateChanged.connect(self.analysis_question)
 
         # Toolbar in main menu home
 
@@ -138,72 +137,81 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         self.setStyleSheet("background-color: gray;")
         self.show()
 
+    def simulate_question(self,state):
+
+        if state == QtCore.Qt.Checked:
+            self.trainCheckBox.setChecked(False)
+            self.analysisCheckBox.setChecked(False)
+            self.setStyleSheet("background-color: gray;")
+            choice = QtGui.QMessageBox.question(self,' Choose Simulation Type ',
+                                                "Do you already have Simulation matrix file (.pkl) \nYES - Resume Simulation \nNo - Intiate Fresh Network Simulation", 
+                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        
+            if choice == QtGui.QMessageBox.Yes:
+                print('Success')
+                self.simulateMenu = AlphaResumeSimulateWindow()   
+                self.simulateMenu.show()    
+            else: 
+                self.simulateMenu = AlphaFreshSimulateWindow()
+                self.simulateMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.simulateMenu.close()
+
+        else:
+            pass
+
+
+    def train_question(self,state):
+
+        if state == QtCore.Qt.Checked:
+            self.simulateCheckBox.setChecked(False)
+            self.analysisCheckBox.setChecked(False)
+            self.setStyleSheet("background-color: gray;")
+            choice = QtGui.QMessageBox.question(self,' Choose Training Type ',
+                                                "Do you already have Simulation matrix file (.pkl) \nYES - Resume Training \nNo - Intiate Fresh Network Training", 
+                     
+                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        
+            if choice == QtGui.QMessageBox.Yes:
+                print('Success')
+                self.trainMenu = AlphaResumeTrainingWindow()   
+                self.trainMenu.show()    
+            else: 
+                self.trainMenu = AlphaFreshTrainingWindow()
+                self.trainMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.trainMenu.close()
+        else:
+            pass
+
+    def analysis_question(self,state):
+
+        if state == QtCore.Qt.Checked:
+            self.trainCheckBox.setChecked(False)
+            self.simulateCheckBox.setChecked(False)
+            self.setStyleSheet("background-color: gray;")
+            
+            self.analysisMenu = AlphaRealtimeAnalysisWindow()   
+            self.analysisMenu.show()    
+            
+
+        elif state != QtCore.Qt.Checked:
+
+            self.analysisMenu.close()
+
+        else:
+
+            pass
 
     def close_application(self):
         
         sys.exit()
 
-    
-    def simulate_menu(self,state):
 
-        if state == QtCore.Qt.Checked:
-
-            print('Alpha Simulation Parameters')
-
-            self.trainCheckBox.setChecked(False)
-            self.analysisCheckBox.setChecked(False)
-
-            self.simulateMenu = AlphaSimulateWindow()
-
-            self.simulateMenu.show()
-
-        elif state != QtCore.Qt.Checked:
-
-            self.SimulateMenu.close()
-
-        else:
-            pass
-
-
-    def train_menu(self,state):
-
-        if state == QtCore.Qt.Checked:
-
-            print('Alpha Training Pipeline')
-
-            self.simulateCheckBox.setChecked(False)
-            self.analysisCheckBox.setChecked(False)
-
-            self.simulateMenu = AlphaTrainWindow()
-
-            self.trainMenu.show()
-
-        elif state != QtCore.Qt.Checked:
-
-            self.TrainMenu.close()
-
-        else:
-            pass
-
-    def analysis_menu(self,state):
-
-        if state == QtCore.Qt.Checked:
-
-            print('SORN Alpha Analysis')
-
-            self.simulateCheckBox.setChecked(False)
-            self.trainCheckBox.setChecked(False)
-
-            self.simulateMenu = AlphaAnalysisWindow()
-
-            self.analysisMenu.show()
-
-        elif state != QtCore.Qt.Checked:
-
-            self.AnalysisMenu.close()
-
-        else:
-            pass
 
     def train(self):
         pass
@@ -279,9 +287,8 @@ class SORN2ActionWindow(QtGui.QMainWindow):
             self.trainCheckBox.setChecked(False)
             self.analysisCheckBox.setChecked(False)
 
-            self.simulateMenu = AlphaSimulateWindow()
-
-            self.simulateMenu.show()
+            # Trigger the question; Do you have simulation matrix? :If yes; Navigate to Resume Simulatio else Fresh Simulation
+            self.simulate_question()
 
         elif state != QtCore.Qt.Checked:
 
@@ -332,6 +339,21 @@ class SORN2ActionWindow(QtGui.QMainWindow):
         else:
             pass
 
+
+    def simulate_question(self):
+
+        self.setStyleSheet("background-color: gray;")
+        choice = QtGui.QMessageBox.question(self,' Choose Simulation Type ',
+                                            "Do you already have Simulation matrix file (.pkl)", 
+                 
+                                            QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+
+        if choice == QtGui.QMessageBox.Yes:
+            self.simulateMenu = AlphaResumeSimulateWindow()   
+            
+        else: 
+            self.simulateMenu = AlphaFreshSimulateWindow() 
+
     def close_application(self):
         
         sys.exit()
@@ -348,15 +370,17 @@ class SORN2ActionWindow(QtGui.QMainWindow):
         pass
 
 ###############################################################################################################################################
+#                                       DO NOT DISTURB ABOVE WINDOW CLASSES
+###############################################################################################################################################
 
 
-class AlphaSimulateWindow(QtGui.QMainWindow):
+class AlphaFreshSimulateWindow(QtGui.QMainWindow):
 
     # Init
     def __init__(self):
         super(AlphaSimulateWindow, self).__init__()
 
-        self.setGeometry(1050, 50, 500, 1000)
+        self.setGeometry(1050, 50, 600, 1000)
         self.setWindowTitle("SORN Alpha Simulation", )
         self.setWindowIcon(QtGui.QIcon('logo.png'))
         
@@ -364,23 +388,116 @@ class AlphaSimulateWindow(QtGui.QMainWindow):
 
     # Views
     def home(self):
-        btn1 = QtGui.QPushButton('Simulate', self)
-
-        btn1.setStyleSheet('font-size: 15pt; font-family: Courier;')
-        btn1.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
-        btn1.clicked.connect(self.simulate)
-        btn1.resize(btn1.sizeHint())
-        btn1.move(50, 900)
-
-        btn2 = QtGui.QPushButton('Exit', self)
-        btn2.setStyleSheet('font-size: 15pt; font-family: Courier;')
-        btn2.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
-        btn2.clicked.connect(self.exit_question)
-        btn2.resize(btn2.sizeHint())
-        btn2.move(400, 900)
 
         self.setStyleSheet("background-color: gray;")
         self.show()
+
+
+    # On checkbox rise a question
+
+    def simulation_type_check(self):
+
+        if state == QtCore.Qt.Checked:
+
+            print('Fresh Simulation selected')
+
+            self.resumeSimulateCheckBox.setChecked(False)
+            self.simulate_question()
+
+
+    def simulate_question(self):
+
+        self.setStyleSheet("background-color: gray;")
+        choice = QtGui.QMessageBox.question(self,' Choose Simulation Type ',
+                                            "Do you already have Simulation matrix file (.pkl)", 
+                 
+                                            QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+
+        if choice == QtGui.QMessageBox.Yes:
+
+            self.resume_simulate_checkbox   # sys.exit()
+            
+        else: self.fresh_simulate_checkbox
+
+    # Event Handlers
+    def fresh_simulate_checkbox(self,state):
+
+        if state == QtCore.Qt.Checked:
+
+            print('Fresh Simulation selected')
+
+            self.resumeSimulateCheckBox.setChecked(False)
+
+            # Views
+            self.btn1 = QtGui.QPushButton('Simulate', self)
+            self.btn1.setStyleSheet('font-size: 15pt; font-family: Courier;')
+            self.btn1.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
+            self.btn1.clicked.connect(self.simulate)
+            self.btn1.resize(self.btn1.sizeHint())
+            self.btn1.move(50, 50)
+
+
+            self.btn2 = QtGui.QPushButton('Exit', self)
+            self.btn2.setStyleSheet('font-size: 15pt; font-family: Courier;')
+            self.btn2.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
+            self.btn2.clicked.connect(self.exit_question)
+            self.btn2.resize(self.btn2.sizeHint())
+            self.move(300, 500)
+
+            self.setStyleSheet("background-color: gray;")
+            self.show()
+    
+        else: pass
+
+
+    def resume_simulate_checkbox(self,state):
+            
+        if state == QtCore.Qt.Checked:
+
+            print('Resume Simulation Selected')
+
+            self.simulateCheckBox.setChecked(False)
+            self.analysisCheckBox.setChecked(False)
+
+            self.simulateMenu = AlphaTrainWindow()
+
+            self.trainMenu.show()
+
+        elif state != QtCore.Qt.Checked:
+
+            self.TrainMenu.close()
+
+        else:
+            pass
+
+            # Views
+            self.btn1 = QtGui.QPushButton('Load matrix file', self)
+
+            self.btn1.setStyleSheet('font-size: 15pt; font-family: Courier;')
+            self.btn1.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
+            self.btn1.clicked.connect(self.simulate)
+            self.resize(self.btn1.sizeHint())
+            self.move(50, 150)
+
+
+            self.btn1 = QtGui.QPushButton('Simulate', self)
+
+            self.btn1.setStyleSheet('font-size: 15pt; font-family: Courier;')
+            self.btn1.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
+            self.btn1.clicked.connect(self.simulate)
+            self.btn1.resize(self.btn1.sizeHint())
+            self.btn1.move(50, 900)
+
+            self.btn2 = QtGui.QPushButton('Exit', self)
+            self.btn2.setStyleSheet('font-size: 15pt; font-family: Courier;')
+            self.btn2.setStyleSheet(' color:white; font-size: 15pt; font-family: Courier;')
+            self.btn2.clicked.connect(self.exit_question)
+            self.btn2.resize(self.btn2.sizeHint())
+            self.move(400, 900)
+
+            self.setStyleSheet("background-color: gray;")
+            self.show()
+
 
     def simulate(self):
         pass
@@ -404,7 +521,7 @@ class AlphaSimulateWindow(QtGui.QMainWindow):
         sys.exit()
 
 
-class TrainMenu(QtGui.QMainWindow):
+class AlphaTrainWindow(QtGui.QMainWindow):
 
     # Init
     def __init__(self):
