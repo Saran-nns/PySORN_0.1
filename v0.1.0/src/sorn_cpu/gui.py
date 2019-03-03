@@ -8,11 +8,9 @@ class SORNModelWindow(QtGui.QMainWindow):
     def __init__(self):
 
         super(SORNModelWindow,self).__init__()
-
-        self.setGeometry(50, 50, 500, 500)
+        self.setGeometry(25, 50, 500, 500)
         self.setWindowTitle("PySORN")
         self.setWindowIcon(QtGui.QIcon('logo.png'))
-        
         self.model_home()
 
 
@@ -47,18 +45,11 @@ class SORNModelWindow(QtGui.QMainWindow):
     def sorn1_action_menu(self,state):
 
         if state == QtCore.Qt.Checked:
-
-            print('SORN Alpha Menu')
-
             self.sorn2CheckBox.setChecked(False)
-
             self.sorn1ActionMenu = SORN1ActionWindow()
-
             self.sorn1ActionMenu.show()
 
-            # self.close()
         elif state != QtCore.Qt.Checked:
-
             self.sorn1ActionMenu.close()
 
         else:
@@ -67,18 +58,11 @@ class SORNModelWindow(QtGui.QMainWindow):
     def sorn2_action_menu(self,state):
         
         if state == QtCore.Qt.Checked:
-
-            print('SORN Beta Menu')
-
             self.sorn1CheckBox.setChecked(False)
-
-
             self.sorn2ActionMenu = SORN2ActionWindow()
-
             self.sorn2ActionMenu.show()
 
         elif state != QtCore.Qt.Checked:
-
             self.sorn2ActionMenu.close()
 
         else:
@@ -90,11 +74,9 @@ class SORN1ActionWindow(QtGui.QMainWindow):
     # Init
     def __init__(self):
         super(SORN1ActionWindow,self).__init__()
-
-        self.setGeometry(550, 50, 500, 500)
+        self.setGeometry(525, 50, 500, 500)
         self.setWindowTitle("SORN Alpha", )
         self.setWindowIcon(QtGui.QIcon('logo.png'))
-        
         self.home()
 
     # Views
@@ -113,6 +95,7 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         self.simulateCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
         self.simulateCheckBox.resize(self.simulateCheckBox.sizeHint())
         self.simulateCheckBox.stateChanged.connect(self.simulate_question)
+        
         # Training CheckBox
         self.trainCheckBox = QtGui.QCheckBox('Network Training', self)
         self.trainCheckBox.move(75,200)
@@ -145,23 +128,20 @@ class SORN1ActionWindow(QtGui.QMainWindow):
             self.setStyleSheet("background-color: gray;")
             choice = QtGui.QMessageBox.question(self,' Choose Simulation Type ',
                                                 "Do you already have Simulation matrix file (.pkl) \nYES - Resume Simulation \nNo - Intiate Fresh Network Simulation", 
-                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-        
+                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)       
             if choice == QtGui.QMessageBox.Yes:
-                print('Success')
                 self.simulateMenu = AlphaResumeSimulateWindow()   
                 self.simulateMenu.show()    
+            
             else: 
                 self.simulateMenu = AlphaFreshSimulateWindow()
                 self.simulateMenu.show()
 
         elif state != QtCore.Qt.Checked:
-
             self.simulateMenu.close()
 
         else:
             pass
-
 
     def train_question(self,state):
 
@@ -170,12 +150,9 @@ class SORN1ActionWindow(QtGui.QMainWindow):
             self.analysisCheckBox.setChecked(False)
             self.setStyleSheet("background-color: gray;")
             choice = QtGui.QMessageBox.question(self,' Choose Training Type ',
-                                                "Do you already have Simulation matrix file (.pkl) \nYES - Resume Training \nNo - Intiate Fresh Network Training", 
-                     
-                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-        
+                                                "Do you already have Simulation matrix file (.pkl) \nYES - Resume Training \nNo - Intiate Fresh Network Training",             
+                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)    
             if choice == QtGui.QMessageBox.Yes:
-                print('Success')
                 self.trainMenu = AlphaResumeTrainingWindow()   
                 self.trainMenu.show()    
             else: 
@@ -183,8 +160,8 @@ class SORN1ActionWindow(QtGui.QMainWindow):
                 self.trainMenu.show()
 
         elif state != QtCore.Qt.Checked:
-
             self.trainMenu.close()
+        
         else:
             pass
 
@@ -194,17 +171,14 @@ class SORN1ActionWindow(QtGui.QMainWindow):
             self.trainCheckBox.setChecked(False)
             self.simulateCheckBox.setChecked(False)
             self.setStyleSheet("background-color: gray;")
-            
             self.analysisMenu = AlphaRealtimeAnalysisWindow()   
             self.analysisMenu.show()    
             
 
         elif state != QtCore.Qt.Checked:
-
             self.analysisMenu.close()
 
         else:
-
             pass
 
     def close_application(self):
@@ -219,9 +193,98 @@ class SORN1ActionWindow(QtGui.QMainWindow):
     def update_config(self):
         pass
 
-########################################################################################################################################
+
+# Alpha Resume Training:
+class AlphaResumeSimulateWindow(QtGui.QMainWindow):
+
+    # Init
+    def __init__(self):
+        super(AlphaResumeSimulateWindow, self).__init__()
+        self.setGeometry(1025, 50, 900, 1000)
+        self.setWindowTitle("Alpha Simulation")
+        self.home()
+
+    # Views 
+    def home(self):
+
+        # Logo
+        msg = QtGui.QLabel(self)
+        msg.setText("Network configuration and Simulation settings")
+        msg.resize(1000,20)
+        msg.setStyleSheet('color:Orange; font-size: 15pt; font-family: Courier;')
+        msg.move(10, 10)
+
+        msg1 = QtGui.QLabel(self)
+        msg1.setText("NOTE: Make sure you load config.ini from the previous simulation")
+        msg1.resize(1000,20)
+        msg1.setStyleSheet('color:White; font-size: 12pt; font-family: Courier;')
+        msg1.move(10, 40)
+        # Load the configuration file
+        
+        config = QtGui.QLabel(self)
+        config.setText("Load the Configuration File")
+        config.resize(1000,50)
+        config.setStyleSheet('color:White; font-size: 14pt; font-family: Courier;')
+        config.move(30, 70)
+
+        # self.sometext = self.qle.text
+        # self.lbl = QtGui.QLabel(self)
+        # self.lbl.move(100, 100)
 
 
+        self.btn2 = QtGui.QPushButton('Browse', self)
+        self.btn2.setStyleSheet('font-size: 10pt; font-family: Courier;')
+        self.btn2.setStyleSheet(' background-color:Green; color:white; font-size: 10pt; font-family: Courier;')
+        self.btn2.clicked.connect(self.upload_config)
+        self.btn2.resize(100,30)
+        self.btn2.move(420, 80)
+        
+        # Load the Simulation matrix
+
+
+        # # Simulation Checkbox
+        # self.simulateCheckBox = QtGui.QCheckBox('Network Simulation', self)
+        # self.simulateCheckBox.move(75,250)
+        # self.simulateCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
+        # self.simulateCheckBox.resize(self.simulateCheckBox.sizeHint())
+        # self.simulateCheckBox.stateChanged.connect(self.simulate_menu)
+        
+        # # Training CheckBox
+        # self.trainCheckBox = QtGui.QCheckBox('Network Training', self)
+        # self.trainCheckBox.move(75,300)
+        # self.trainCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
+        # self.trainCheckBox.resize(self.trainCheckBox.sizeHint())
+        # self.trainCheckBox.stateChanged.connect(self.train_menu)
+
+        # # Analysis CheckBox
+        # self.analysisCheckBox = QtGui.QCheckBox('Network Analysis', self)
+        # self.analysisCheckBox.move(75,350)
+        # self.analysisCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
+        # self.analysisCheckBox.resize(self.analysisCheckBox.sizeHint())
+        # self.analysisCheckBox.stateChanged.connect(self.analysis_menu)
+
+
+        # Toolbar in main menu home
+
+        # extractAction = QtGui.QAction(QtGui.QIcon("logo.png"), 'Simulate the Network', self)
+        # extractAction.triggered.connect(self.simulate_menu)
+        # self.toolBar = self.addToolBar(" Simulation")
+        # self.toolBar.addAction(extractAction)
+
+        self.setStyleSheet("background-color: gray;")
+        self.show()
+
+
+    def selectFile(self):
+        lineEdit.setText(QFileDialog.getOpenFileName())
+
+    def upload_config(self):
+        dialog = QtGui.QFileDialog()
+        fname = dialog.getOpenFileName(None, "Import Configuration File", "", "Configuration files (*.ini)")
+
+        
+
+            
 class SORN2ActionWindow(QtGui.QMainWindow):
 
     # Init
