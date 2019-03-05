@@ -2,6 +2,36 @@ import sys
 from configparser import ConfigParser
 from PyQt4 import QtGui, QtCore
 
+
+# Initiate ConfigParser Instance
+parser = ConfigParser()
+
+# Configuration file reader
+class ConfigReader(object):
+
+    def __init__(self):
+
+        super(ConfigReader,self).__init__()
+
+        self.nu = int(parser.get('Network_Config', 'Nu'))  # Number of input units
+        self.ne = int(parser.get('Network_Config', 'Ne'))  # Number of excitatory units
+        self.ni = int(0.2 * ne)  # Number of inhibitory units in the network
+        self.eta_stdp = float(parser.get('Network_Config', 'eta_stdp'))
+        self.eta_inhib = float(parser.get('Network_Config', 'eta_inhib'))
+        self.eta_ip = float(parser.get('Network_Config', 'eta_ip'))
+        self.te_max = float(parser.get('Network_Config', 'te_max'))
+        self.ti_max = float(parser.get('Network_Config', 'ti_max'))
+        self.ti_min = float(parser.get('Network_Config', 'ti_min'))
+        self.te_min = float(parser.get('Network_Config', 'te_min'))
+        self.mu_ip = float(parser.get('Network_Config', 'mu_ip'))
+        self.sigma_ip = float(parser.get('Network_Config', 'sigma_ip'))  # Standard deviation, variance == 0
+
+    # Get the updated values from GUI to config
+    def update_config(self):
+
+        pass
+
+# Main Window to choose the Model: SORN 1 or SORN 2
 class SORNModelWindow(QtGui.QMainWindow):
 
     # Init
@@ -131,11 +161,12 @@ class SORN1ActionWindow(QtGui.QMainWindow):
                                                 QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)       
             if choice == QtGui.QMessageBox.Yes:
                 self.simulateMenu = AlphaResumeSimulateWindow()   
-                self.simulateMenu.show()    
-            
+                self.simulateMenu.show()
+
             else: 
                 self.simulateMenu = AlphaFreshSimulateWindow()
                 self.simulateMenu.show()
+
 
         elif state != QtCore.Qt.Checked:
             self.simulateMenu.close()
@@ -232,59 +263,116 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         # self.lbl.move(100, 100)
 
 
-        self.btn2 = QtGui.QPushButton('Browse', self)
-        self.btn2.setStyleSheet('font-size: 10pt; font-family: Courier;')
-        self.btn2.setStyleSheet(' background-color:Green; color:white; font-size: 10pt; font-family: Courier;')
-        self.btn2.clicked.connect(self.upload_config)
-        self.btn2.resize(100,30)
-        self.btn2.move(420, 80)
+        self.btn = QtGui.QPushButton('Browse', self)
+        self.btn.setStyleSheet('font-size: 10pt; font-family: Courier;')
+        self.btn.setStyleSheet(' background-color:Green; color:white; font-size: 10pt; font-family: Courier;')
+        self.btn.clicked.connect(self.upload_config)
+        self.btn.resize(100,30)
+        self.btn.move(420, 80)
         
-        # Load the Simulation matrix
-
-
-        # # Simulation Checkbox
-        # self.simulateCheckBox = QtGui.QCheckBox('Network Simulation', self)
-        # self.simulateCheckBox.move(75,250)
-        # self.simulateCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
-        # self.simulateCheckBox.resize(self.simulateCheckBox.sizeHint())
-        # self.simulateCheckBox.stateChanged.connect(self.simulate_menu)
+        # Parameters from Configuration file
+        self.ne_ = QtGui.QLineEdit()
+        self.ne_.setValidator(QtGui.QIntValidator())
+        self.ne_.setMaxLength(4)
         
-        # # Training CheckBox
-        # self.trainCheckBox = QtGui.QCheckBox('Network Training', self)
-        # self.trainCheckBox.move(75,300)
-        # self.trainCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
-        # self.trainCheckBox.resize(self.trainCheckBox.sizeHint())
-        # self.trainCheckBox.stateChanged.connect(self.train_menu)
+        self.ni_ = QtGui.QLineEdit()
+        self.ni_.setValidator(QtGui.QIntValidator())
+        self.ni_.setMaxLength(4)
 
-        # # Analysis CheckBox
-        # self.analysisCheckBox = QtGui.QCheckBox('Network Analysis', self)
-        # self.analysisCheckBox.move(75,350)
-        # self.analysisCheckBox.setStyleSheet('color:white; font-size: 15pt; font-family: Courier;')
-        # self.analysisCheckBox.resize(self.analysisCheckBox.sizeHint())
-        # self.analysisCheckBox.stateChanged.connect(self.analysis_menu)
+        self.nu_ = QtGui.QLineEdit()
+        self.nu_.setValidator(QtGui.QIntValidator())
+        self.nu_.setMaxLength(4)
+            
+        self.eta_stdp_ = QtGui.QLineEdit()
+        self.eta_stdp_.setValidator(QtGui.QDoubleValidator())
+        self.eta_stdp_.setMaxLength(5)
 
+        self.eta_ip_ = QtGui.QLineEdit()
+        self.eta_ip_.setValidator(QtGui.QDoubleValidator())
+        self.eta_ip_.setMaxLength(5)
 
-        # Toolbar in main menu home
+        self.eta_inhib_ = QtGui.QLineEdit()
+        self.eta_inhib_.setValidator(QtGui.QDoubleValidator())
+        self.eta_inhib_.setMaxLength(5)
 
-        # extractAction = QtGui.QAction(QtGui.QIcon("logo.png"), 'Simulate the Network', self)
-        # extractAction.triggered.connect(self.simulate_menu)
-        # self.toolBar = self.addToolBar(" Simulation")
-        # self.toolBar.addAction(extractAction)
+        self.te_max_ = QtGui.QLineEdit()
+        self.te_max_.setValidator(QtGui.QDoubleValidator())
+        self.te_max_.setMaxLength(5)
+
+        self.te_min_ = QtGui.QLineEdit()
+        self.te_min_.setValidator(QtGui.QDoubleValidator())
+        self.te_min_.setMaxLength(5)
+
+        self.ti_max_ = QtGui.QLineEdit()
+        self.ti_max_.setValidator(QtGui.QDoubleValidator())
+        self.ti_max_.setMaxLength(5)
+
+        self.ti_min_ = QtGui.QLineEdit()
+        self.ti_min_.setValidator(QtGui.QDoubleValidator())
+        self.ti_min_.setMaxLength(5)
+
+        self.mu_ip_ = QtGui.QLineEdit()
+        self.mu_ip_.setValidator(QtGui.QDoubleValidator())
+        self.mu_ip_.setMaxLength(5)
+
+        self.sigma_ip_ = QtGui.QLineEdit()
+        self.sigma_ip_.setValidator(QtGui.QDoubleValidator())
+        self.sigma_ip_.setMaxLength(5)
+            
+        # Layout
+        self.form_layout = QtGui.QFormLayout()
+
+        self.form_layout.addRow("Number of excitatory units", self.ne_)
+        self.form_layout.addRow("Number of inhibitory units", self.ni_)
+        self.form_layout.addRow("Number of input units", self.nu_)
+        self.form_layout.addRow("eta_stdp",self.eta_stdp_)
+        self.form_layout.addRow("eta_inhib",self.eta_inhib_)
+        self.form_layout.addRow("eta_ip",self.eta_ip_)
+        self.form_layout.addRow("te_max",self.te_max_)
+        self.form_layout.addRow("te_min",self.te_min_) 
+        self.form_layout.addRow("ti_max",self.ti_max_)
+        self.form_layout.addRow("ti_min",self.ti_min_)
+        self.form_layout.addRow("mu_ip",self.mu_ip_)
+        self.form_layout.addRow("sigma_ip",self.sigma_ip_)
 
         self.setStyleSheet("background-color: gray;")
+
+        win= QtGui.QWidget(self)
+        # self.setCentralWidget(win)
+        # layout = QtGui.QVBoxLayout()
+        win.setLayout(self.form_layout)
+        win.move(100,800)
         self.show()
-
-
-    def selectFile(self):
-        lineEdit.setText(QFileDialog.getOpenFileName())
+        win.show()
+        
+        
+        # .setWindowTitle("Network Configuration")
+        
 
     def upload_config(self):
         dialog = QtGui.QFileDialog()
-        fname = dialog.getOpenFileName(None, "Import Configuration File", "", "Configuration files (*.ini)")
-
+        self.configFile = dialog.getOpenFileName(None, "Import Configuration File", "", "Configuration files (*.ini)")
         
+    def read_config(self):
 
-            
+        # Read Config
+        parser.read(self.configFile)
+
+        # Scrap the file
+        self.nu = int(parser.get('Network_Config', 'Nu'))  # Number of input units
+        self.ne = int(parser.get('Network_Config', 'Ne'))  # Number of excitatory units
+        self.ni = int(0.2 * ne)  # Number of inhibitory units in the network
+        self.eta_stdp = float(parser.get('Network_Config', 'eta_stdp'))
+        self.eta_inhib = float(parser.get('Network_Config', 'eta_inhib'))
+        self.eta_ip = float(parser.get('Network_Config', 'eta_ip'))
+        self.te_max = float(parser.get('Network_Config', 'te_max'))
+        self.ti_max = float(parser.get('Network_Config', 'ti_max'))
+        self.ti_min = float(parser.get('Network_Config', 'ti_min'))
+        self.te_min = float(parser.get('Network_Config', 'te_min'))
+        self.mu_ip = float(parser.get('Network_Config', 'mu_ip'))
+        self.sigma_ip = float(parser.get('Network_Config', 'sigma_ip'))  # Standard deviation, variance == 0
+
+     
 class SORN2ActionWindow(QtGui.QMainWindow):
 
     # Init
