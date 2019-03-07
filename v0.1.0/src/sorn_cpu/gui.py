@@ -98,7 +98,7 @@ class SORNModelWindow(QtGui.QMainWindow):
         else:
             pass
 
-
+# SOEN Model 1 : Simulate? Train? oder Analysis?
 class SORN1ActionWindow(QtGui.QMainWindow):
 
     # Init
@@ -150,6 +150,7 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         self.setStyleSheet("background-color: gray;")
         self.show()
 
+    # Fragen Sie fresh or resume simulation
     def simulate_question(self,state):
 
         if state == QtCore.Qt.Checked:
@@ -174,6 +175,7 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         else:
             pass
 
+    # Ask Fresh or resume training
     def train_question(self,state):
 
         if state == QtCore.Qt.Checked:
@@ -196,6 +198,7 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         else:
             pass
 
+    # Just navigate to Analysis window
     def analysis_question(self,state):
 
         if state == QtCore.Qt.Checked:
@@ -345,8 +348,7 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         self.show()
         win.show()
         
-        
-        # .setWindowTitle("Network Configuration")
+        # win.setWindowTitle("Network Configuration")
         
 
     def upload_config(self):
@@ -372,7 +374,107 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         self.mu_ip = float(parser.get('Network_Config', 'mu_ip'))
         self.sigma_ip = float(parser.get('Network_Config', 'sigma_ip'))  # Standard deviation, variance == 0
 
-     
+  
+
+ # Form layout for configuration variables window
+ 
+ class ConfigurationLayout(QtGui.QMainWindow):
+
+    def __init__(self):
+
+        super(ConfigurationLayout,self).__init__()
+
+        self.setGeometry(1025, 50, 900, 1000)
+        self.setWindowTitle("Network_Configurations from Config.ini")
+        self.home()
+
+
+    def home(self):
+
+
+        self.btn = QtGui.QPushButton('Browse', self)
+        self.btn.setStyleSheet('font-size: 10pt; font-family: Courier;')
+        self.btn.setStyleSheet(' background-color:Green; color:white; font-size: 10pt; font-family: Courier;')
+        self.btn.clicked.connect(self.upload_config)
+        self.btn.resize(100,30)
+        self.btn.move(420, 80)
+        
+        # Parameters from Configuration file
+        self.ne_ = QtGui.QLineEdit()
+        self.ne_.setValidator(QtGui.QIntValidator())
+        self.ne_.setMaxLength(4)
+        
+        self.ni_ = QtGui.QLineEdit()
+        self.ni_.setValidator(QtGui.QIntValidator())
+        self.ni_.setMaxLength(4)
+
+        self.nu_ = QtGui.QLineEdit()
+        self.nu_.setValidator(QtGui.QIntValidator())
+        self.nu_.setMaxLength(4)
+            
+        self.eta_stdp_ = QtGui.QLineEdit()
+        self.eta_stdp_.setValidator(QtGui.QDoubleValidator())
+        self.eta_stdp_.setMaxLength(5)
+
+        self.eta_ip_ = QtGui.QLineEdit()
+        self.eta_ip_.setValidator(QtGui.QDoubleValidator())
+        self.eta_ip_.setMaxLength(5)
+
+        self.eta_inhib_ = QtGui.QLineEdit()
+        self.eta_inhib_.setValidator(QtGui.QDoubleValidator())
+        self.eta_inhib_.setMaxLength(5)
+
+        self.te_max_ = QtGui.QLineEdit()
+        self.te_max_.setValidator(QtGui.QDoubleValidator())
+        self.te_max_.setMaxLength(5)
+
+        self.te_min_ = QtGui.QLineEdit()
+        self.te_min_.setValidator(QtGui.QDoubleValidator())
+        self.te_min_.setMaxLength(5)
+
+        self.ti_max_ = QtGui.QLineEdit()
+        self.ti_max_.setValidator(QtGui.QDoubleValidator())
+        self.ti_max_.setMaxLength(5)
+
+        self.ti_min_ = QtGui.QLineEdit()
+        self.ti_min_.setValidator(QtGui.QDoubleValidator())
+        self.ti_min_.setMaxLength(5)
+
+        self.mu_ip_ = QtGui.QLineEdit()
+        self.mu_ip_.setValidator(QtGui.QDoubleValidator())
+        self.mu_ip_.setMaxLength(5)
+
+        self.sigma_ip_ = QtGui.QLineEdit()
+        self.sigma_ip_.setValidator(QtGui.QDoubleValidator())
+        self.sigma_ip_.setMaxLength(5)
+            
+        # Layout
+        self.form_layout = QtGui.QFormLayout()
+
+        self.form_layout.addRow("Number of excitatory units", self.ne_)
+        self.form_layout.addRow("Number of inhibitory units", self.ni_)
+        self.form_layout.addRow("Number of input units", self.nu_)
+        self.form_layout.addRow("eta_stdp",self.eta_stdp_)
+        self.form_layout.addRow("eta_inhib",self.eta_inhib_)
+        self.form_layout.addRow("eta_ip",self.eta_ip_)
+        self.form_layout.addRow("te_max",self.te_max_)
+        self.form_layout.addRow("te_min",self.te_min_) 
+        self.form_layout.addRow("ti_max",self.ti_max_)
+        self.form_layout.addRow("ti_min",self.ti_min_)
+        self.form_layout.addRow("mu_ip",self.mu_ip_)
+        self.form_layout.addRow("sigma_ip",self.sigma_ip_)
+
+        self.setStyleSheet("background-color: gray;")
+
+        self.win= QtGui.QWidget(self)
+        # self.setCentralWidget(win)
+        # layout = QtGui.QVBoxLayout()
+        self.win.setLayout(self.form_layout)
+        self.win.move(100,800)
+        self.win.show()
+
+
+
 class SORN2ActionWindow(QtGui.QMainWindow):
 
     # Init
