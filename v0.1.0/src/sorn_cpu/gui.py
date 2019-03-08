@@ -228,7 +228,7 @@ class SORN1ActionWindow(QtGui.QMainWindow):
         pass
 
 
-# Alpha Resume Training:
+# Alpha Resume Training: Yes from simulate_question (SORN1ActionWindow class) for resuming of simulation through config file 
 class AlphaResumeSimulateWindow(QtGui.QMainWindow):
 
     # Init
@@ -236,6 +236,7 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         super(AlphaResumeSimulateWindow, self).__init__()
         self.setGeometry(1025, 50, 900, 1000)
         self.setWindowTitle("Alpha Simulation")
+        self.setWindowIcon(QtGui.QIcon('logo.png'))
         self.home()
 
     # Views 
@@ -377,13 +378,18 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         self.form_layout.addRow("mu_ip",self.mu_ip_)
         self.form_layout.addRow("sigma_ip",self.sigma_ip_)
 
-        self.setStyleSheet("background-color: gray;")
+        self.setStyleSheet("background-color: gray;font-size: 08pt; font-family: Courier;")
 
         self.win= QtGui.QWidget()
+        self.win.setWindowTitle('Network Configuration')
+        self.win.setWindowIcon(QtGui.QIcon('logo.png'))
         # self.setCentralWidget(win)
         # layout = QtGui.QVBoxLayout()
         self.win.setLayout(self.form_layout)
-        self.win.move(1025,150)
+        self.win.resize(900,800)
+        # self.win.resize(self.win.sizeHint())
+        self.win.setStyleSheet("background-color: gray;color:White; font-size: 10pt; font-family: Courier;")
+        self.win.move(1025,200)
         self.win.show()
         # self.show()
 
