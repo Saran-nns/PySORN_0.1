@@ -285,8 +285,8 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
 
         # Once the file is loaded read the file in new window ConfigurationLayout
 
-        self.configWindow = ConfigurationLayout()
-        self.configWindow.show()
+        # self.configWindow = ConfigurationLayout()
+        self.config_layout()
 
         
     def read_config(self):
@@ -308,21 +308,9 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         self.mu_ip = float(parser.get('Network_Config', 'mu_ip'))
         self.sigma_ip = float(parser.get('Network_Config', 'sigma_ip')) 
 
+    # Form layout for configuration variables window
 
- # Form layout for configuration variables window
- 
-class ConfigurationLayout(QtGui.QMainWindow):
-
-    def __init__(self):
-
-        super(ConfigurationLayout,self).__init__()
-
-        self.setGeometry(1025, 250, 900, 800)
-        self.setWindowTitle("Network_Configurations from Config.ini")
-        self.home()
-
-
-    def home(self):
+    def config_layout(self):
         
         # Parameters from Configuration file
         self.ne_ = QtGui.QLineEdit()
@@ -391,14 +379,13 @@ class ConfigurationLayout(QtGui.QMainWindow):
 
         self.setStyleSheet("background-color: gray;")
 
-        self.win= QtGui.QWidget(self)
+        self.win= QtGui.QWidget()
         # self.setCentralWidget(win)
         # layout = QtGui.QVBoxLayout()
         self.win.setLayout(self.form_layout)
-        self.win.move(100,800)
+        self.win.move(1025,150)
         self.win.show()
-        self.show()
-
+        # self.show()
 
 
 class SORN2ActionWindow(QtGui.QMainWindow):
