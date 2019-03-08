@@ -273,80 +273,8 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         self.btn.resize(100,30)
         self.btn.move(420, 80)
         
-        # Parameters from Configuration file
-        self.ne_ = QtGui.QLineEdit()
-        self.ne_.setValidator(QtGui.QIntValidator())
-        self.ne_.setMaxLength(4)
-        
-        self.ni_ = QtGui.QLineEdit()
-        self.ni_.setValidator(QtGui.QIntValidator())
-        self.ni_.setMaxLength(4)
-
-        self.nu_ = QtGui.QLineEdit()
-        self.nu_.setValidator(QtGui.QIntValidator())
-        self.nu_.setMaxLength(4)
-            
-        self.eta_stdp_ = QtGui.QLineEdit()
-        self.eta_stdp_.setValidator(QtGui.QDoubleValidator())
-        self.eta_stdp_.setMaxLength(5)
-
-        self.eta_ip_ = QtGui.QLineEdit()
-        self.eta_ip_.setValidator(QtGui.QDoubleValidator())
-        self.eta_ip_.setMaxLength(5)
-
-        self.eta_inhib_ = QtGui.QLineEdit()
-        self.eta_inhib_.setValidator(QtGui.QDoubleValidator())
-        self.eta_inhib_.setMaxLength(5)
-
-        self.te_max_ = QtGui.QLineEdit()
-        self.te_max_.setValidator(QtGui.QDoubleValidator())
-        self.te_max_.setMaxLength(5)
-
-        self.te_min_ = QtGui.QLineEdit()
-        self.te_min_.setValidator(QtGui.QDoubleValidator())
-        self.te_min_.setMaxLength(5)
-
-        self.ti_max_ = QtGui.QLineEdit()
-        self.ti_max_.setValidator(QtGui.QDoubleValidator())
-        self.ti_max_.setMaxLength(5)
-
-        self.ti_min_ = QtGui.QLineEdit()
-        self.ti_min_.setValidator(QtGui.QDoubleValidator())
-        self.ti_min_.setMaxLength(5)
-
-        self.mu_ip_ = QtGui.QLineEdit()
-        self.mu_ip_.setValidator(QtGui.QDoubleValidator())
-        self.mu_ip_.setMaxLength(5)
-
-        self.sigma_ip_ = QtGui.QLineEdit()
-        self.sigma_ip_.setValidator(QtGui.QDoubleValidator())
-        self.sigma_ip_.setMaxLength(5)
-            
-        # Layout
-        self.form_layout = QtGui.QFormLayout()
-
-        self.form_layout.addRow("Number of excitatory units", self.ne_)
-        self.form_layout.addRow("Number of inhibitory units", self.ni_)
-        self.form_layout.addRow("Number of input units", self.nu_)
-        self.form_layout.addRow("eta_stdp",self.eta_stdp_)
-        self.form_layout.addRow("eta_inhib",self.eta_inhib_)
-        self.form_layout.addRow("eta_ip",self.eta_ip_)
-        self.form_layout.addRow("te_max",self.te_max_)
-        self.form_layout.addRow("te_min",self.te_min_) 
-        self.form_layout.addRow("ti_max",self.ti_max_)
-        self.form_layout.addRow("ti_min",self.ti_min_)
-        self.form_layout.addRow("mu_ip",self.mu_ip_)
-        self.form_layout.addRow("sigma_ip",self.sigma_ip_)
-
         self.setStyleSheet("background-color: gray;")
-
-        win= QtGui.QWidget(self)
-        # self.setCentralWidget(win)
-        # layout = QtGui.QVBoxLayout()
-        win.setLayout(self.form_layout)
-        win.move(100,800)
         self.show()
-        win.show()
         
         # win.setWindowTitle("Network Configuration")
         
@@ -354,6 +282,12 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
     def upload_config(self):
         dialog = QtGui.QFileDialog()
         self.configFile = dialog.getOpenFileName(None, "Import Configuration File", "", "Configuration files (*.ini)")
+
+        # Once the file is loaded read the file in new window ConfigurationLayout
+
+        self.configWindow = ConfigurationLayout()
+        self.configWindow.show()
+
         
     def read_config(self):
 
@@ -361,9 +295,9 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         parser.read(self.configFile)
 
         # Scrap the file
-        self.nu = int(parser.get('Network_Config', 'Nu'))  # Number of input units
-        self.ne = int(parser.get('Network_Config', 'Ne'))  # Number of excitatory units
-        self.ni = int(0.2 * ne)  # Number of inhibitory units in the network
+        self.nu = int(parser.get('Network_Config', 'Nu'))  
+        self.ne = int(parser.get('Network_Config', 'Ne'))  
+        self.ni = int(0.2 * ne)  
         self.eta_stdp = float(parser.get('Network_Config', 'eta_stdp'))
         self.eta_inhib = float(parser.get('Network_Config', 'eta_inhib'))
         self.eta_ip = float(parser.get('Network_Config', 'eta_ip'))
@@ -372,32 +306,23 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         self.ti_min = float(parser.get('Network_Config', 'ti_min'))
         self.te_min = float(parser.get('Network_Config', 'te_min'))
         self.mu_ip = float(parser.get('Network_Config', 'mu_ip'))
-        self.sigma_ip = float(parser.get('Network_Config', 'sigma_ip'))  # Standard deviation, variance == 0
+        self.sigma_ip = float(parser.get('Network_Config', 'sigma_ip')) 
 
-  
 
  # Form layout for configuration variables window
  
- class ConfigurationLayout(QtGui.QMainWindow):
+class ConfigurationLayout(QtGui.QMainWindow):
 
     def __init__(self):
 
         super(ConfigurationLayout,self).__init__()
 
-        self.setGeometry(1025, 50, 900, 1000)
+        self.setGeometry(1025, 250, 900, 800)
         self.setWindowTitle("Network_Configurations from Config.ini")
         self.home()
 
 
     def home(self):
-
-
-        self.btn = QtGui.QPushButton('Browse', self)
-        self.btn.setStyleSheet('font-size: 10pt; font-family: Courier;')
-        self.btn.setStyleSheet(' background-color:Green; color:white; font-size: 10pt; font-family: Courier;')
-        self.btn.clicked.connect(self.upload_config)
-        self.btn.resize(100,30)
-        self.btn.move(420, 80)
         
         # Parameters from Configuration file
         self.ne_ = QtGui.QLineEdit()
@@ -472,6 +397,7 @@ class AlphaResumeSimulateWindow(QtGui.QMainWindow):
         self.win.setLayout(self.form_layout)
         self.win.move(100,800)
         self.win.show()
+        self.show()
 
 
 
