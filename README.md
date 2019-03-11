@@ -1,6 +1,6 @@
 **Status:** Active (under active development, breaking changes may occur). To reproduce the figures and analysis, navigate to notebooks/alpha_cpu.
 
-For easy install navigate to the latest project https://pypi.org/project/sorn/0.1.3/
+For easy install navigate to the latest project https://pypi.org/project/sorn/0.1.4/
 
 # PySORN: Pre-release version 0.1.0
 
