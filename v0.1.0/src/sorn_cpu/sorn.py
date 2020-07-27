@@ -1,7 +1,8 @@
-from __future__ import division
+# -*- coding: utf-8 -*-
 
+from __future__ import division
 import numpy as np
-import utils.InitHelper as initializer
+from utils import Initializer
 from configparser import ConfigParser
 import random
 import tqdm
@@ -57,7 +58,7 @@ class Sorn(object):
             """ Generate weight matrix for E-E/ E-I connections with mean lamda incoming and 
                out-going connections per neuron """
 
-            weight_matrix = initializer.generate_lambd_connections(synaptic_connection, Sorn.ne, Sorn.ni, lambd_w, lambd_std=1)
+            weight_matrix = Initializer.generate_lambd_connections(synaptic_connection, Sorn.ne, Sorn.ni, lambd_w, lambd_std=1)
 
         # Dense matrix for W_ie
 
@@ -159,10 +160,10 @@ class Plasticity(Sorn):
                     wee_t[j][i] = wee[j][i] + delta_wee_t
 
         """ Prune the smallest weights induced by plasticity mechanisms; Apply lower cutoff weight"""
-        wee_t = initializer.prune_small_weights(wee_t, cutoff_weights[0])
+        wee_t = Initializer.prune_small_weights(wee_t, cutoff_weights[0])
 
         """Check and set all weights < upper cutoff weight """
-        wee_t = initializer.set_max_cutoff_weight(wee_t, cutoff_weights[1])
+        wee_t = Initializer.set_max_cutoff_weight(wee_t, cutoff_weights[1])
 
         return wee_t
 
@@ -224,10 +225,10 @@ class Plasticity(Sorn):
                     wei_t[j][i] = wei[j][i] + delta_wei_t
 
         """ Prune the smallest weights induced by plasticity mechanisms; Apply lower cutoff weight"""
-        wei_t = initializer.prune_small_weights(wei_t, cutoff_weights[0])
+        wei_t = Initializer.prune_small_weights(wei_t, cutoff_weights[0])
 
         """Check and set all weights < upper cutoff weight """
-        wei_t = initializer.set_max_cutoff_weight(wei_t, cutoff_weights[1])
+        wei_t = Initializer.set_max_cutoff_weight(wei_t, cutoff_weights[1])
 
         return wei_t
 
@@ -244,7 +245,7 @@ class Plasticity(Sorn):
 
             # Choose the smallest weights randomly from the weight matrix wee
 
-            indexes = initializer.get_unconnected_indexes(wee)
+            indexes = Initializer.get_unconnected_indexes(wee)
 
             # Choose any idx randomly
             idx_rand = random.choice(indexes)
@@ -256,7 +257,6 @@ class Plasticity(Sorn):
 
         return wee
 
-    ###########################################################
 
     @staticmethod
     def initialize_plasticity():
@@ -276,10 +276,10 @@ class Plasticity(Sorn):
                                                       self_connection='False',
                                                       lambd_w=None)
 
-        Wee_init = initializer.zero_sum_incoming_check(WEE_init)
+        Wee_init = Initializer.zero_sum_incoming_check(WEE_init)
         # Wei_init = initializer.zero_sum_incoming_check(WEI_init.T)
-        Wei_init = initializer.zero_sum_incoming_check(WEI_init)
-        Wie_init = initializer.zero_sum_incoming_check(WIE_init)
+        Wei_init = Initializer.zero_sum_incoming_check(WEI_init)
+        Wie_init = Initializer.zero_sum_incoming_check(WIE_init)
 
         c = np.count_nonzero(Wee_init)
         v = np.count_nonzero(Wei_init)
@@ -291,9 +291,9 @@ class Plasticity(Sorn):
 
         # Normalize the incoming weights
 
-        normalized_wee = initializer.normalize_weight_matrix(Wee_init)
-        normalized_wei = initializer.normalize_weight_matrix(Wei_init)
-        normalized_wie = initializer.normalize_weight_matrix(Wie_init)
+        normalized_wee = Initializer.normalize_weight_matrix(Wee_init)
+        normalized_wei = Initializer.normalize_weight_matrix(Wei_init)
+        normalized_wie = Initializer.normalize_weight_matrix(Wie_init)
 
         te_init, ti_init = sorn_init.initialize_threshold_matrix(Sorn.te_min, Sorn.te_max, Sorn.ti_min, Sorn.ti_max)
         x_init, y_init = sorn_init.initialize_activity_vector(Sorn.ne, Sorn.ni)
@@ -365,7 +365,7 @@ class MatrixCollection(Sorn):
         elif self.phase == 'Training':
 
             """NOTE:
-            time_steps here is diferent for plasticity or trianing phase"""
+            time_steps here is diferent for plasticity and training phase"""
             self.time_steps = Sorn.time_steps + 1  # Total training steps
             self.Wee, self.Wei, self.Wie, self.Te, self.Ti, self.X, self.Y = [0] * self.time_steps, [
                 0] * self.time_steps, \
@@ -530,13 +530,13 @@ class RunSorn(Sorn):
 
         for i in tqdm.tqdm(range(self.time_steps)):
             """ Generate white noise"""
-            white_noise_e = initializer.white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ne)
-            white_noise_i = initializer.white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ni)
+            white_noise_e = Initializer.white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ne)
+            white_noise_i = Initializer.white_gaussian_noise(mu=0., sigma=0.04, t=Sorn.ni)
 
             # Generate inputs
-            inp_ = np.expand_dims(initializer.generate_normal_inp(10), 1)
+            # inp_ = np.expand_dims(Initializer.generate_normal_inp(10), 1)
 
-            network_state = NetworkState(inp_)  # Feed input and initialize network state
+            network_state = NetworkState(inp)  # Feed input and initialize network state
 
             # Buffers to get the resulting x and y vectors at the current time step and update the master matrix
 

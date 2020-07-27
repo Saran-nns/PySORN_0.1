@@ -24,7 +24,7 @@ from mpl_toolkits.axes_grid1.inset_locator import InsetPosition
 """ UTILS"""
 
 
-class InitHelper(object):
+class Initializer(object):
 
     def __init__(self):
         pass
